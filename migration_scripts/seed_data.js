@@ -1,5 +1,7 @@
 const { createClient } = require("@supabase/supabase-js");
 
+// 4/23/2023 - initial data for the course
+
 const data = [
   {
     node: {
