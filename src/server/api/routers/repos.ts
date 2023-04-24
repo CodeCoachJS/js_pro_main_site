@@ -14,7 +14,7 @@ interface Repo {
 
 export const repos = createTRPCRouter({
   getRepos: publicProcedure.query(async (): Promise<Repo[]> => {
-    const { data, error }: PostgrestResponse<any> = await supabase
+    const { data, error }: PostgrestResponse<unknown> = await supabase
       .from("repos")
       .select("*");
 
