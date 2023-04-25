@@ -14,7 +14,7 @@ const Home: NextPage = () => {
   const categories = useMemo(() => {
     const categories = new Set<string>();
     data?.forEach((repo) => {
-      if (repo.categories) {
+      if (repo?.categories?.length) {
         repo.categories.forEach((cat) => categories.add(cat));
       }
     });
@@ -116,7 +116,10 @@ const Home: NextPage = () => {
               target="_blank"
               rel="noopener noreferrer"
               className="bg-card-bg text-card-text hover:bg-blue-lighter mx-2 my-2 max-w-md overflow-hidden rounded-md shadow-lg transition-colors duration-200"
-              style={{ flex: "1 1 25%" }}
+              style={{
+                flex: "1 1 25%",
+                minWidth: "200px",
+              }}
             >
               <div className="relative"></div>
               <div className="px-6 py-4">
