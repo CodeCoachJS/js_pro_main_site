@@ -1,8 +1,24 @@
 import { type NextPage } from "next";
 import { api } from "~/utils/api";
+import { useSession } from "next-auth/react";
+import Link from "next/link";
 
 const VideosPage: NextPage = () => {
   const { data } = api.videos.getVideos.useQuery();
+  const session = useSession();
+
+  if (!session.data?.isMember) {
+    return (
+      <div className="flex min-h-screen flex-col items-center justify-center py-2">
+        <h1 className="text-4xl font-bold">You are not a member</h1>
+        <p className="text-2xl">Please sign in to access this page</p>
+        <button className="mt-4 rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700">
+          <Link href="/api/auth/signin">Sign in</Link>
+        </button>
+      </div>
+    );
+  }
+
   return (
     <>
       <div
