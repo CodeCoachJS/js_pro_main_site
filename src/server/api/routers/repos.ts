@@ -38,6 +38,7 @@ export const repos = createTRPCRouter({
       repo_categories (
         category: categories ( name )
       )
+      sort: updated_at, desc
     `
       );
 
@@ -46,7 +47,7 @@ export const repos = createTRPCRouter({
     }
 
     const transformedData: RepoWithCategories[] =
-      data?.map((repo): RepoWithCategories => {
+      data.map((repo): RepoWithCategories => {
         const categories: string[] = repo.repo_categories.map(
           (category: Category) => {
             return category.category.name;

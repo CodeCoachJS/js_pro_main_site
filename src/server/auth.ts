@@ -15,6 +15,7 @@ import { env } from "~/env.mjs";
  */
 declare module "next-auth" {
   interface Session extends DefaultSession {
+    isMember: boolean;
     user: {
       id: string;
       // ...other properties
@@ -28,6 +29,28 @@ declare module "next-auth" {
   // }
 }
 
+interface GitHubOrgUser {
+  login: string;
+  id: number;
+  node_id: string;
+  avatar_url: string;
+  gravatar_id: string;
+  url: string;
+  html_url: string;
+  type: string;
+  site_admin: boolean;
+  name: string;
+  company: string;
+  blog: string;
+  location: string;
+  public_repos: number;
+  public_gists: number;
+  followers: number;
+  following: number;
+  created_at: string;
+  updated_at: string;
+}
+
 /**
  * Options for NextAuth.js used to configure adapters, providers, callbacks, etc.
  *
@@ -35,14 +58,33 @@ declare module "next-auth" {
  */
 export const authOptions: NextAuthOptions = {
   callbacks: {
-    session: ({ session, user }) => ({
-      ...session,
-      user: {
-        ...session.user,
-        id: user.id,
-      },
-    }),
+    session: async ({ session }) => {
+      const url = "https://api.github.com/orgs/CodeCoachJS/members";
+      const headers = new Headers({
+        Authorization: `Bearer ${env.GITHUB_PERSONAL_TOKEN || "NO_TOKEN"}`,
+        Accept: "application/vnd.github+json",
+      });
+
+      try {
+        const res = await fetch(url, { headers });
+
+        if (res.ok) {
+          const data: GitHubOrgUser[] = (await res.json()) as GitHubOrgUser[];
+
+          const isMember: boolean = data.some((member) => {
+            return member.avatar_url === session.user.image;
+          });
+
+          return { ...session, isMember };
+        } else {
+          throw new Error(`Failed to fetch members: ${res.statusText}`);
+        }
+      } catch (error) {
+        return { ...session, isMember: false };
+      }
+    },
   },
+
   providers: [
     GitHubProvider({
       clientId: env.GITHUB_ID,

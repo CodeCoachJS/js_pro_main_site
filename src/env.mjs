@@ -21,6 +21,7 @@ const server = z.object({
   GITHUB_ID: z.string(),
   GITHUB_SECRET: z.string(),
   SUPABASE_SECRET: z.string(),
+  GITHUB_PERSONAL_TOKEN: z.string(),
   SUPABASE_URL: z.string(),
 });
 
@@ -44,6 +45,7 @@ const processEnv = {
   NEXTAUTH_URL: process.env.NEXTAUTH_URL,
   GITHUB_ID: process.env.GITHUB_ID,
   GITHUB_SECRET: process.env.GITHUB_SECRET,
+  GITHUB_PERSONAL_TOKEN: process.env.GITHUB_PERSONAL_TOKEN,
   SUPABASE_SECRET: process.env.SUPABASE_SECRET,
   SUPABASE_URL: process.env.SUPABASE_URL,
   // NEXT_PUBLIC_CLIENTVAR: process.env.NEXT_PUBLIC_CLIENTVAR,

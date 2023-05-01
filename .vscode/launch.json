@@ -1,0 +1,23 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Next.js: Node",
+      "type": "node",
+
+      "request": "launch",
+      "runtimeExecutable": "/usr/local/bin/npm",
+
+      "runtimeArgs": ["run", "dev"],
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "outFiles": ["${workspaceFolder}/.next/**/*.js"]
+    }
+  ],
+  "compounds": [
+    {
+      "name": "Next.js",
+      "configurations": ["Next.js: Node"]
+    }
+  ]
+}

@@ -1,8 +1,9 @@
 import { type NextPage } from "next";
 import { useEffect, useState, useMemo } from "react";
 import Head from "next/head";
-import { signIn, signOut, useSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import { api } from "~/utils/api";
+import Link from "next/link";
 
 const Home: NextPage = () => {
   const { data: sessionData } = useSession();
@@ -53,29 +54,48 @@ const Home: NextPage = () => {
     setFilter(new Set(filter));
   };
 
+  console.log({ sessionData });
+
+  const isNotMember = !sessionData || !sessionData?.isMember;
+
   return (
     <>
       <Head>
         <title>JS Pros</title>
         <meta name="description" content="JS Pros repos" />
-        <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className="min-h-screen">
-        <h1 className="text-center text-4xl text-white">JS Pros</h1>
-        {/* <button
-          className="bg-purple hover:bg-purple-lighter rounded-full px-4 py-2 font-semibold no-underline transition"
-          onClick={sessionData ? () => void signOut() : () => void signIn()}
-        >
-          {sessionData ? "Sign out" : "Sign in"}
-        </button> */}
-        <p className="text-center text-2xl text-white">
-          {sessionData && (
-            <span className="text-blue-lighter">
-              Logged in as {sessionData.user?.name}
-            </span>
-          )}
-        </p>
-        <div className="flex flex-wrap justify-center">
+      <main className="bg-purple min-h-screen">
+        {isNotMember && (
+          <div>
+            <div className="flex flex-wrap justify-center">
+              <div className="w-full max-w-4xl">
+                <div className="flex flex-wrap justify-center">
+                  <div className="w-full px-4">
+                    <div className="relative mb-6 flex w-full min-w-0 flex-col break-words rounded-lg bg-white shadow-lg">
+                      <div className="mb-0 rounded-t bg-transparent px-4 py-3">
+                        <div className="flex flex-wrap items-center">
+                          <div className="relative w-full max-w-full flex-1 flex-grow px-4">
+                            <h3 className="text-blueGray-700 text-center text-lg font-semibold">
+                              Not a Member? Join{" "}
+                              <Link
+                                target="_blank"
+                                className="text-blue-500 hover:text-blue-700"
+                                href="https://yourcodecoach.com/not-another-course"
+                              >
+                                Not Another Course
+                              </Link>
+                            </h3>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+        <div className="mt-10 flex flex-wrap justify-center">
           <button
             key="all"
             className={`${
@@ -115,13 +135,22 @@ const Home: NextPage = () => {
               href={repo.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="bg-card-bg text-card-text hover:bg-blue-lighter mx-2 my-2 max-w-md overflow-hidden rounded-md shadow-lg transition-colors duration-200"
+              className="bg-card-bg text-card-text hover:bg-blue-lighter group relative mx-2 my-2 max-w-md overflow-hidden rounded-md shadow-lg transition-colors duration-200"
               style={{
                 flex: "1 1 25%",
                 minWidth: "200px",
               }}
             >
-              <div className="relative"></div>
+              {repo.isPrivate && isNotMember && (
+                <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 opacity-0 transition-opacity duration-200 group-hover:opacity-100">
+                  <a href="#" className="text-lg font-semibold text-white">
+                    Members Only 😎
+                  </a>
+                </div>
+              )}
+              <div className="relative">
+                {/* Add other elements inside the card here, if necessary */}
+              </div>
               <div className="px-6 py-4">
                 <div className="text-blue-lighter mb-2 text-xl font-bold">
                   {repo.name}
