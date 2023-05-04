@@ -54,7 +54,13 @@ const Home: NextPage = () => {
     setFilter(new Set(filter));
   };
 
-  console.log({ sessionData });
+  const isNewish = (upatedAt: string): boolean => {
+    const date = new Date(upatedAt);
+    const now = new Date();
+    const diff = now.getTime() - date.getTime();
+    const days = diff / (1000 * 3600 * 24);
+    return days < 30;
+  };
 
   const isNotMember = !sessionData || !sessionData?.isMember;
 
@@ -148,9 +154,7 @@ const Home: NextPage = () => {
                   </a>
                 </div>
               )}
-              <div className="relative">
-                {/* Add other elements inside the card here, if necessary */}
-              </div>
+              <div className="relative"></div>
               <div className="px-6 py-4">
                 <div className="text-blue-lighter mb-2 text-xl font-bold">
                   {repo.name}
@@ -158,6 +162,11 @@ const Home: NextPage = () => {
                 <p className="text-base">{repo.description}</p>
               </div>
               <div className="px-6 py-4">
+                {isNewish(repo.updated_at) && (
+                  <span className="mr-2 inline-block rounded-full bg-green-200 px-3 py-1 text-sm font-semibold text-gray-700">
+                    new
+                  </span>
+                )}
                 <span className="mr-2 inline-block rounded-full bg-gray-200 px-3 py-1 text-sm font-semibold text-gray-700">
                   {new Date(repo.updated_at).toLocaleDateString()}
                 </span>

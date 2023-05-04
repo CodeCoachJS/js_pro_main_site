@@ -1,28 +1,19 @@
-# Create T3 App
+# JS Pros Main Site
 
 This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.
 
-## What's next? How do I make an app with this?
+## What is it?
 
-We try to keep this project as simple as possible, so you can start with just the scaffolding we set up for you, and add additional things later when they become necessary.
+A website to organize the challenges offered to members of **Not Another Course**.
 
-If you are not familiar with the different technologies used in this project, please refer to the respective docs. If you still are in the wind, please join our [Discord](https://t3.gg/discord) and ask for help.
+Repos, videos and documents which will help you on your journey as a software developer.
 
-- [Next.js](https://nextjs.org)
-- [NextAuth.js](https://next-auth.js.org)
-- [Prisma](https://prisma.io)
-- [Tailwind CSS](https://tailwindcss.com)
-- [tRPC](https://trpc.io)
+This site stores the data in Supabase, deployed via Vercel, uses Tailwind for styling and Next Auth with Github.
 
-## Learn More
+The site is public and available for anyone and there's no real need to sign in other than to show what repos are publicly available.
 
-To learn more about the [T3 Stack](https://create.t3.gg/), take a look at the following resources:
+For example, a user who is part of the course and signed in will see that all repos are clickable.
 
-- [Documentation](https://create.t3.gg/)
-- [Learn the T3 Stack](https://create.t3.gg/en/faq#what-learning-resources-are-currently-available) — Check out these awesome tutorials
+A non-auth user will see an overlay asking them to sign up if they are not part of the program.
 
-You can check out the [create-t3-app GitHub repository](https://github.com/t3-oss/create-t3-app) — your feedback and contributions are welcome!
-
-## How do I deploy this?
-
-Follow our deployment guides for [Vercel](https://create.t3.gg/en/deployment/vercel), [Netlify](https://create.t3.gg/en/deployment/netlify) and [Docker](https://create.t3.gg/en/deployment/docker) for more information.
+The `/videos` route is auth protected and available to logged in users.
