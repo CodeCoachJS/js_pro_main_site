@@ -38,7 +38,7 @@ export const repos = createTRPCRouter({
       repo_categories (
         category: categories ( name )
       )
-      sort: updated_at, desc
+      sort: updated_at, asc
     `
       );
 

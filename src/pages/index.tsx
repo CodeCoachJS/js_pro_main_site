@@ -71,36 +71,6 @@ const Home: NextPage = () => {
         <meta name="description" content="JS Pros repos" />
       </Head>
       <main className="bg-purple min-h-screen">
-        {isNotMember && (
-          <div>
-            <div className="flex flex-wrap justify-center">
-              <div className="w-full max-w-4xl">
-                <div className="flex flex-wrap justify-center">
-                  <div className="w-full px-4">
-                    <div className="relative mb-6 flex w-full min-w-0 flex-col break-words rounded-lg bg-white shadow-lg">
-                      <div className="mb-0 rounded-t bg-transparent px-4 py-3">
-                        <div className="flex flex-wrap items-center">
-                          <div className="relative w-full max-w-full flex-1 flex-grow px-4">
-                            <h3 className="text-blueGray-700 text-center text-lg font-semibold">
-                              Not a Member? Join{" "}
-                              <Link
-                                target="_blank"
-                                className="text-blue-500 hover:text-blue-700"
-                                href="https://yourcodecoach.com/not-another-course"
-                              >
-                                Not Another Course
-                              </Link>
-                            </h3>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
         <div className="mt-10 flex flex-wrap justify-center">
           <button
             key="all"
@@ -138,8 +108,8 @@ const Home: NextPage = () => {
           {repos?.map((repo) => (
             <a
               key={repo.id}
-              href={repo.url}
-              target="_blank"
+              href={isNotMember && repo.isPrivate ? "#" : repo.url}
+              target={isNotMember && repo.isPrivate ? "_self" : "_blank"}
               rel="noopener noreferrer"
               className="bg-card-bg text-card-text hover:bg-blue-lighter group relative mx-2 my-2 max-w-md overflow-hidden rounded-md shadow-lg transition-colors duration-200"
               style={{
@@ -149,12 +119,12 @@ const Home: NextPage = () => {
             >
               {repo.isPrivate && isNotMember && (
                 <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 opacity-0 transition-opacity duration-200 group-hover:opacity-100">
-                  <a href="#" className="text-lg font-semibold text-white">
+                  <p className="text-lg font-semibold text-white">
                     Members Only 😎
-                  </a>
+                  </p>
                 </div>
               )}
-              <div className="relative"></div>
+
               <div className="px-6 py-4">
                 <div className="text-blue-lighter mb-2 text-xl font-bold">
                   {repo.name}
@@ -167,11 +137,8 @@ const Home: NextPage = () => {
                     new
                   </span>
                 )}
-                <span className="mr-2 inline-block rounded-full bg-gray-200 px-3 py-1 text-sm font-semibold text-gray-700">
-                  {new Date(repo.updated_at).toLocaleDateString()}
-                </span>
                 <span className="inline-block rounded-full bg-gray-200 px-3 py-1 text-sm font-semibold text-gray-700">
-                  {repo.isPrivate ? "Private" : "Public"}
+                  {repo.isPrivate ? "Members Only" : "FREE"}
                 </span>
               </div>
             </a>
