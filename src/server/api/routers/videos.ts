@@ -16,7 +16,8 @@ export const videos = createTRPCRouter({
     const { data, error }: PostgrestResponse<Video> = await supabase
       .from("videos")
       .select("*")
-      .order("isPublic", { ascending: false });
+      .order("isPublic", { ascending: false })
+      .select("*");
 
     if (error) {
       throw error;

@@ -48,7 +48,7 @@ const VideosPage: NextPage = () => {
                   alt={video.description}
                   width={480}
                   height={270}
-                  className="h-48 w-full object-cover" // Adjust this as necessary
+                  className="h-48 w-full object-cover"
                 />
               )}
 

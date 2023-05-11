@@ -12,8 +12,6 @@ This site stores the data in Supabase, deployed via Vercel, uses Tailwind for st
 
 The site is public and available for anyone and there's no real need to sign in other than to show what repos are publicly available.
 
-For example, a user who is part of the course and signed in will see that all repos are clickable.
+For example, a user who is part of the course and signed in will see that all repos/videos and documents(coming soon) are clickable.
 
 A non-auth user will see an overlay asking them to sign up if they are not part of the program.
-
-The `/videos` route is auth protected and available to logged in users.
