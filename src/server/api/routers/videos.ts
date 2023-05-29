@@ -1,7 +1,11 @@
 import type { PostgrestResponse } from "@supabase/supabase-js";
 
 import { supabase } from "~/pages/api/trpc/[trpc]";
-import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
+import {
+  createTRPCRouter,
+  protectedProcedure,
+  publicProcedure,
+} from "~/server/api/trpc";
 
 interface Video {
   url: string;
@@ -11,7 +15,22 @@ interface Video {
   isPublic: boolean;
 }
 
+export type WeeklyVideo = Omit<Video, "isPublic" | "thumbnail_url">;
+
 export const videos = createTRPCRouter({
+  getWeeklyMeetings: protectedProcedure.query(
+    async (): Promise<WeeklyVideo[]> => {
+      const { data, error }: PostgrestResponse<WeeklyVideo> = await supabase
+        .from("weekly_meetups")
+        .select("*");
+
+      if (error) {
+        throw error;
+      }
+
+      return data;
+    }
+  ),
   getVideos: publicProcedure.query(async (): Promise<Video[]> => {
     const { data, error }: PostgrestResponse<Video> = await supabase
       .from("videos")

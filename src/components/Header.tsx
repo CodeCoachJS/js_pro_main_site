@@ -30,6 +30,13 @@ const Header: NextComponentType = () => {
               >
                 Videos
               </Link>
+
+              <Link
+                className="mr-4 text-blue-200 hover:text-white lg:inline-block"
+                href="/meetups"
+              >
+                Recorded Weekly Meetings
+              </Link>
             </div>
           </div>
           <div>
