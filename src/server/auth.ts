@@ -59,7 +59,8 @@ interface GitHubOrgUser {
 export const authOptions: NextAuthOptions = {
   callbacks: {
     session: async ({ session }) => {
-      const url = "https://api.github.com/orgs/CodeCoachJS/members";
+      const url =
+        "https://api.github.com/orgs/CodeCoachJS/members?per_page=100";
       const headers = new Headers({
         Authorization: `Bearer ${env.GITHUB_PERSONAL_TOKEN || "NO_TOKEN"}`,
         Accept: "application/vnd.github+json",
