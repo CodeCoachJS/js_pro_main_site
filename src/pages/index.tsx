@@ -95,6 +95,10 @@ const Home: NextPage = () => {
               {cat}
             </button>
           ))}
+          <p className="text-center text-xl">
+            Not sure where to start? I suggest checking out the main course
+            material under <pre>interview prep</pre>
+          </p>
         </div>
         <div
           className="flex flex-wrap justify-center space-x-4 space-y-4"
