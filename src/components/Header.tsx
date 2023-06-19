@@ -1,9 +1,11 @@
+import { useState } from "react";
 import { type NextComponentType } from "next";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 
 const Header: NextComponentType = () => {
   const session = useSession();
+  const [isOpen, setIsOpen] = useState(false);
 
   const isNotMember = !session.data?.isMember;
 
@@ -15,43 +17,55 @@ const Header: NextComponentType = () => {
             <span className="text-2xl font-bold tracking-tight">JS Pros</span>
           </div>
 
-          <div className="flex items-center">
+          <div className="lg:hidden">
+            <button type="button" onClick={() => setIsOpen(!isOpen)}>
+              <svg viewBox="0 0 20 20" fill="white" className="menu h-6 w-6">
+                <path
+                  fillRule="evenodd"
+                  d="M2 4.5A1.5 1.5 0 013.5 3h13a1.5 1.5 0 110 3h-13A1.5 1.5 0 012 4.5zm0 5A1.5 1.5 0 013.5 8h13a1.5 1.5 0 110 3h-13A1.5 1.5 0 012 9.5zm1.5 5a1.5 1.5 0 100 3h13a1.5 1.5 0 100-3h-13z"
+                  clipRule="evenodd"
+                />
+              </svg>
+            </button>
+          </div>
+
+          <div
+            className={`${
+              isOpen ? "block" : "hidden"
+            } w-full items-center lg:flex lg:w-auto`}
+          >
             <div className="text-sm lg:flex-grow">
               <Link
                 href="/"
-                className="mr-4 text-blue-200 hover:text-white lg:inline-block"
+                className="mr-4 mt-4 block text-blue-200 hover:text-white lg:mt-0 lg:inline-block"
               >
                 Challenges
               </Link>
 
               <Link
-                className="mr-4 text-blue-200 hover:text-white lg:inline-block"
+                className="mr-4 mt-4 block text-blue-200 hover:text-white lg:mt-0 lg:inline-block"
                 href="/videos"
               >
                 Videos
               </Link>
 
               <Link
-                className="mr-4 text-blue-200 hover:text-white lg:inline-block"
+                className="mr-4 mt-4 block text-blue-200 hover:text-white lg:mt-0 lg:inline-block"
                 href="/meetups"
               >
                 Recorded Weekly Meetings
               </Link>
-            </div>
-          </div>
-          <div>
-            <div>
               {session.data ? (
                 <Link
                   href="/api/auth/signout"
-                  className="inline-block rounded-full border border-white px-4 py-2 text-sm leading-none text-white hover:border-transparent hover:bg-white hover:text-blue-500"
+                  className="mr-4 mt-4 block text-blue-200 hover:text-white lg:mt-0 lg:inline-block"
                 >
                   Sign out
                 </Link>
               ) : (
                 <Link
                   href="/api/auth/signin"
-                  className="inline-block rounded-full border border-white px-4 py-2 text-sm leading-none text-white hover:border-transparent hover:bg-white hover:text-blue-500"
+                  className="mr-4 mt-4 block text-blue-200 hover:text-white lg:mt-0 lg:inline-block"
                 >
                   Sign in
                 </Link>
