@@ -1,7 +1,6 @@
 import { type NextPage } from "next";
 import { api } from "~/utils/api";
 import { useSession } from "next-auth/react";
-import { PRIVATE_PAGE_MESSAGE } from "~/consts";
 import PrivatePageWarning from "~/components/PrivatePage";
 
 const ReadingsPage: NextPage = () => {

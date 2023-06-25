@@ -1,164 +1,60 @@
 import { type NextPage } from "next";
-import { useEffect, useState, useMemo } from "react";
-import Head from "next/head";
-import { useSession } from "next-auth/react";
-import { api } from "~/utils/api";
+import {
+  AcademicCapIcon,
+  PlayIcon,
+  PuzzleIcon,
+} from "@heroicons/react/outline";
+import Link from "next/link";
 
 const Home: NextPage = () => {
-  const { data: sessionData } = useSession();
-
-  const { data } = api.repos.getRepos.useQuery();
-  const [repos, setRepos] = useState(data);
-  const [filter, setFilter] = useState<Set<string>>(new Set());
-
-  const categories = useMemo(() => {
-    const categories = new Set<string>();
-    data?.forEach((repo) => {
-      if (repo?.categories?.length) {
-        repo.categories.forEach((cat) => categories.add(cat));
-      }
-    });
-    return categories;
-  }, [data]);
-
-  useEffect(() => {
-    setRepos(data);
-  }, [data]);
-
-  useEffect(() => {
-    if (filter.size > 0) {
-      setRepos(
-        data?.filter((repo) => {
-          if (repo.categories) {
-            return repo.categories.some((cat) => filter.has(cat));
-          }
-          return false;
-        })
-      );
-    } else {
-      setRepos(data);
-    }
-  }, [filter, data]);
-
-  const filterByCategory = (category: string) => {
-    if (category === "all") {
-      setFilter(new Set());
-      return;
-    }
-    if (filter.has(category)) {
-      filter.delete(category);
-    } else {
-      filter.add(category);
-    }
-    setFilter(new Set(filter));
-  };
-
-  const isNewish = (upatedAt: string): boolean => {
-    const date = new Date(upatedAt);
-    const now = new Date();
-    const diff = now.getTime() - date.getTime();
-    const days = diff / (1000 * 3600 * 24);
-    return days < 30;
-  };
-
-  const isNotMember = !sessionData || !sessionData?.isMember;
-
   return (
-    <>
-      <Head>
-        <title>JS Pros</title>
-        <meta name="description" content="JS Pros repos" />
-      </Head>
-      <main className="bg-purple min-h-screen">
-        <div className="mt-10 flex flex-wrap justify-center">
-          <button
-            key="all"
-            className={`${
-              filter.has("all")
-                ? "bg-purple-700"
-                : "bg-purple-500 hover:bg-purple-600"
-            } mb-2 mr-2 flex items-center rounded-full px-4 py-2 font-semibold text-white no-underline transition`}
-            onClick={() => filterByCategory("all")}
-          >
-            All
-          </button>
-          {Array.from(categories).map((cat) => (
-            <button
-              key={cat}
-              className={`${
-                filter.has(cat)
-                  ? "bg-purple-700"
-                  : "bg-purple-500 hover:bg-purple-600"
-              } mb-2 mr-2 flex items-center rounded-full px-4 py-2 font-semibold text-white no-underline transition`}
-              onClick={() => filterByCategory(cat)}
-            >
-              {cat}
-            </button>
-          ))}
-        </div>
-        <p className="text-center text-xl">
-          Not sure where to start? I suggest checking out the main course
-          material under <code>interview prep</code>
+    <div className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 py-2 text-white">
+      <div className="m-10 text-center">
+        <h1 className="text-shadow mb-6 text-6xl font-bold">
+          Welcome to Not Another Course!
+        </h1>
+        <p className=" text-xl">
+          Enough tutorials. Level up with hands on challenges + community +
+          documentation to improve your life (as a developer). You just will not
+          find these types of challenges anywhere else. Webpack, Redux, FS JS,
+          TS, NextJS, DSA. Acronyms!!!
         </p>
-        <div
-          className="flex flex-wrap justify-center space-x-4 space-y-4"
-          style={{
-            display: "flex",
-            flexWrap: "wrap",
-            justifyContent: "center",
-          }}
-        >
-          {repos?.map((repo) => (
-            <a
-              key={repo.id}
-              href={isNotMember && repo.isPrivate ? "#" : repo.url}
-              target={isNotMember && repo.isPrivate ? "_self" : "_blank"}
-              rel="noopener noreferrer"
-              className="bg-card-bg text-card-text hover:bg-blue-lighter group relative mx-2 my-2 max-w-md overflow-hidden rounded-md shadow-lg transition-colors duration-200"
-              style={{
-                flex: "1 1 25%",
-                minWidth: "200px",
-              }}
-            >
-              {repo.isPrivate && isNotMember && (
-                <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 opacity-0 transition-opacity duration-200 group-hover:opacity-100">
-                  <p className="text-lg font-semibold text-white">
-                    Members Only 😎
-                  </p>
-                </div>
-              )}
+      </div>
 
-              <div className="px-6 py-4">
-                <div className="text-blue-lighter mb-2 text-xl font-bold">
-                  {repo.name}
-                </div>
-                <p className="text-base">{repo.description}</p>
-              </div>
-              <a
-                className="px-6 py-4"
-                target={isNotMember && repo.isPrivate ? "_self" : "_blank"}
-                rel="noopener noreferrer"
-                href={`https://gitpod.io/#/${repo.url}`}
-              >
-                <button className="rounded border border-blue-500 bg-transparent px-4 py-2 font-semibold text-blue-700 hover:border-transparent hover:bg-blue-500 hover:text-white">
-                  Open GitPod
-                </button>
-              </a>
-              <div className="px-6 py-4">
-                {isNewish(repo.updated_at) && (
-                  <span className="mr-2 inline-block rounded-full bg-green-200 px-3 py-1 text-sm font-semibold text-gray-700">
-                    new
-                  </span>
-                )}
-                <span className="inline-block rounded-full bg-gray-200 px-3 py-1 text-sm font-semibold text-gray-700">
-                  {repo.isPrivate ? "Members Only" : "FREE"}
-                </span>
-              </div>
-            </a>
-          ))}
+      <div className="mt-6 flex">
+        <div className="w-1/3 p-4 text-center">
+          <PuzzleIcon className="mx-auto mb-2 h-12 w-12" />
+          <h2 className=" mb-2 text-2xl font-bold">Challenges</h2>
+          <p className="">
+            The stuff you will encounter at some point in your career.
+          </p>
         </div>
-      </main>
-    </>
+        <div className="w-1/3 p-4 text-center">
+          <PlayIcon className="mx-auto mb-2 h-12 w-12" />
+          <h2 className=" mb-2 text-2xl font-bold">Videos & Readings</h2>
+          <p className="">
+            Educational videos, readings and cheat sheets to get knowledge into
+            your noggin FAST.
+          </p>
+        </div>
+        <div className="w-1/3 p-4 text-center">
+          <AcademicCapIcon className="mx-auto mb-2 h-12 w-12" />
+          <h2 className=" mb-2 text-2xl font-bold">
+            Live Sessions & Slack Membership to ask questions when you get stuck
+          </h2>
+          <p className="">Join us. But not like in a cult-y way.</p>
+        </div>
+      </div>
+
+      <div className="mt-6">
+        <Link
+          className="rounded bg-white px-4 py-2 font-bold text-gray-800 hover:bg-gray-100"
+          href="https://www.yourcodecoach.com/offers/ECgwzooM/checkout"
+        >
+          Lifetime Access
+        </Link>
+      </div>
+    </div>
   );
 };
 

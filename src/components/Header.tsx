@@ -36,7 +36,7 @@ const Header: NextComponentType = () => {
           >
             <div className="text-sm lg:flex-grow">
               <Link
-                href="/"
+                href="/challenges"
                 className="mr-4 mt-4 block text-blue-200 hover:text-white lg:mt-0 lg:inline-block"
               >
                 Challenges
