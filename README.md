@@ -10,8 +10,8 @@ Repos, videos and documents which will help you on your journey as a software de
 
 This site stores the data in Supabase, deployed via Vercel, uses Tailwind for styling and Next Auth with Github.
 
-The site is public and available for anyone and there's no real need to sign in other than to show what repos are publicly available.
+The site is public and available for anyone but certain pages like `Readings` and certain content within pages is privatized for members.
 
-For example, a user who is part of the course and signed in will see that all repos/videos and documents(coming soon) are clickable.
+For example, a user who is part of the course and signed in will see that all repos/videos and documents are clickable.
 
 A non-auth user will see an overlay asking them to sign up if they are not part of the program.

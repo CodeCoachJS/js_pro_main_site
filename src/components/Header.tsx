@@ -51,6 +51,13 @@ const Header: NextComponentType = () => {
 
               <Link
                 className="mr-4 mt-4 block text-blue-200 hover:text-white lg:mt-0 lg:inline-block"
+                href="/readings"
+              >
+                Readings
+              </Link>
+
+              <Link
+                className="mr-4 mt-4 block text-blue-200 hover:text-white lg:mt-0 lg:inline-block"
                 href="/meetups"
               >
                 Recorded Weekly Meetings

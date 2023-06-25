@@ -98,7 +98,7 @@ const Home: NextPage = () => {
         </div>
         <p className="text-center text-xl">
           Not sure where to start? I suggest checking out the main course
-          material under <pre>interview prep</pre>
+          material under <code>interview prep</code>
         </p>
         <div
           className="flex flex-wrap justify-center space-x-4 space-y-4"
