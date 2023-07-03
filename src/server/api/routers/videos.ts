@@ -22,6 +22,8 @@ export const videos = createTRPCRouter({
     async (): Promise<WeeklyVideo[]> => {
       const { data, error }: PostgrestResponse<WeeklyVideo> = await supabase
         .from("weekly_meetups")
+        .select("*")
+        .order("created_at", { ascending: false })
         .select("*");
 
       if (error) {

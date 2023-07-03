@@ -63,12 +63,20 @@ const Header: NextComponentType = () => {
                 Recorded Weekly Meetings
               </Link>
               {session.data ? (
-                <Link
-                  href="/api/auth/signout"
-                  className="mr-4 mt-4 block text-blue-200 hover:text-white lg:mt-0 lg:inline-block"
-                >
-                  Sign out
-                </Link>
+                <>
+                  <Link
+                    href="/api/auth/signout"
+                    className="mr-4 mt-4 block text-blue-200 hover:text-white lg:mt-0 lg:inline-block"
+                  >
+                    Sign out
+                  </Link>
+                  <Link
+                    className="mr-4 mt-4 block text-blue-200 hover:text-white lg:mt-0 lg:inline-block"
+                    href="https://billing.stripe.com/p/login/00g9AZ3sAa5ldws7ss"
+                  >
+                    Manage Subscription
+                  </Link>
+                </>
               ) : (
                 <Link
                   href="/api/auth/signin"
