@@ -138,7 +138,7 @@ const Home: NextPage = () => {
                 className="px-6 py-4"
                 target={isNotMember && repo.isPrivate ? "_self" : "_blank"}
                 rel="noopener noreferrer"
-                href={`https://gitpod.io/#/${repo.url}`}
+                href={`${repo.url}/codespaces`}
               >
                 <button className="rounded border border-blue-500 bg-transparent px-4 py-2 font-semibold text-blue-700 hover:border-transparent hover:bg-blue-500 hover:text-white">
                   Open GitPod
