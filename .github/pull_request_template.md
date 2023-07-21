@@ -1,8 +1,3 @@
----
-name: Pull Request Template
-about: Template for submitting a new Pull Request
----
-
 ## Linked Issue
 
 Please include a link to the issue this PR is related to.
