@@ -12,7 +12,7 @@ const Header: NextComponentType = () => {
   return (
     <>
       <header>
-        <nav className="flex flex-wrap items-center justify-between bg-gradient-to-r from-blue-500 to-purple-500 p-6">
+        <nav className="flex flex-wrap items-center justify-between bg-black p-6">
           <div className="mr-6 flex flex-shrink-0 items-center text-white">
             <span className="text-2xl font-bold tracking-tight">JS Pros</span>
           </div>
@@ -37,42 +37,50 @@ const Header: NextComponentType = () => {
             <div className="text-sm lg:flex-grow">
               <Link
                 href="/challenges"
-                className="mr-4 mt-4 block text-blue-200 hover:text-white lg:mt-0 lg:inline-block"
+                className="mr-4 mt-4 block text-white hover:text-teal-200 lg:mt-0 lg:inline-block"
               >
                 Challenges
               </Link>
 
               <Link
-                className="mr-4 mt-4 block text-blue-200 hover:text-white lg:mt-0 lg:inline-block"
+                className="mr-4 mt-4 block text-white hover:text-teal-200 lg:mt-0 lg:inline-block"
                 href="/videos"
               >
                 Videos
               </Link>
 
               <Link
-                className="mr-4 mt-4 block text-blue-200 hover:text-white lg:mt-0 lg:inline-block"
+                className="mr-4 mt-4 block text-white hover:text-teal-200 lg:mt-0 lg:inline-block"
                 href="/readings"
               >
                 Readings
               </Link>
 
               <Link
-                className="mr-4 mt-4 block text-blue-200 hover:text-white lg:mt-0 lg:inline-block"
+                className="mr-4 mt-4 block text-white hover:text-teal-200 lg:mt-0 lg:inline-block"
                 href="/meetups"
               >
                 Recorded Weekly Meetings
               </Link>
               {session.data ? (
-                <Link
-                  href="/api/auth/signout"
-                  className="mr-4 mt-4 block text-blue-200 hover:text-white lg:mt-0 lg:inline-block"
-                >
-                  Sign out
-                </Link>
+                <>
+                  <Link
+                    href="/api/auth/signout"
+                    className="mr-4 mt-4 block text-white hover:text-teal-200 lg:mt-0 lg:inline-block"
+                  >
+                    Sign out
+                  </Link>
+                  <Link
+                    className="mr-4 mt-4 block text-white hover:text-teal-200 lg:mt-0 lg:inline-block"
+                    href="https://billing.stripe.com/p/login/00g9AZ3sAa5ldws7ss"
+                  >
+                    Manage Subscription
+                  </Link>
+                </>
               ) : (
                 <Link
                   href="/api/auth/signin"
-                  className="mr-4 mt-4 block text-blue-200 hover:text-white lg:mt-0 lg:inline-block"
+                  className="mr-4 mt-4 block text-white hover:text-teal-200 lg:mt-0 lg:inline-block"
                 >
                   Sign in
                 </Link>
@@ -87,7 +95,7 @@ const Header: NextComponentType = () => {
             <div className="w-full max-w-4xl">
               <div className="flex flex-wrap justify-center">
                 <div className="w-full px-4">
-                  <div className="relative mb-6 flex w-full min-w-0 flex-col break-words rounded-lg bg-white shadow-lg">
+                  <div className="relative mb-6 flex w-full min-w-0 flex-col break-words rounded-lg shadow-lg">
                     <div className="mb-0 rounded-t bg-transparent px-4 py-3">
                       <div className="flex flex-wrap items-center">
                         <div className="relative w-full max-w-full flex-1 flex-grow px-4">
@@ -100,8 +108,8 @@ const Header: NextComponentType = () => {
                             >
                               Not Another Course{" "}
                             </Link>
-                            and get LIFETIME access to all the challenges and
-                            videos + Slack access and weekly meetups
+                            and get full access to all the challenges and videos
+                            + Slack access and weekly meetups
                           </h3>
                         </div>
                       </div>

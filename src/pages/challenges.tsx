@@ -85,11 +85,11 @@ const Home: NextPage = () => {
           {Array.from(categories).map((cat) => (
             <button
               key={cat}
-              className={`${
-                filter.has(cat)
-                  ? "bg-purple-700"
-                  : "bg-purple-500 hover:bg-purple-600"
-              } mb-2 mr-2 flex items-center rounded-full px-4 py-2 font-semibold text-white no-underline transition`}
+              className={`
+             ${filter.has(cat) ? "bg-purple-700" : "bg-purple-500"} 
+             mb-2 mr-2 flex transform items-center rounded-full px-4 py-2 font-semibold text-white no-underline 
+             shadow-lg transition hover:scale-105 hover:shadow-xl motion-reduce:transform-none
+           `}
               onClick={() => filterByCategory(cat)}
             >
               {cat}
