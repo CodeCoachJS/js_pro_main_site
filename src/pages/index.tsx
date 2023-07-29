@@ -1,6 +1,7 @@
 import { type NextPage } from "next";
 import Image from "next/image";
 import Head from "next/head";
+import Link from "next/link";
 
 const Home: NextPage = () => {
   return (
@@ -33,12 +34,12 @@ const Home: NextPage = () => {
             testing. e2e. Way more than I can write here.
           </p>
           <div>
-            <a
+            <Link
               href="/challenges"
               className="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-indigo-500 to-pink-500 px-6 py-3 font-bold text-white transition-all hover:from-indigo-400 hover:to-pink-400"
             >
               Explore and try now →
-            </a>
+            </Link>
           </div>
         </div>
         <Image
