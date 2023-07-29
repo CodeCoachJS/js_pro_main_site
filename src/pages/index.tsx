@@ -29,8 +29,8 @@ const Home: NextPage = () => {
 
           <p className="max-w-xl text-center text-xl leading-relaxed text-white md:text-2xl">
             Learn all the stuff your bootcamp skipped. Webpack. Redux.
-            Node/Express. Debugging production apps. Unit testing. e2e. Way more
-            than I can write here.
+            Node/Express. Debugging production apps. Academic stuff. DSA. Unit
+            testing. e2e. Way more than I can write here.
           </p>
           <div>
             <a

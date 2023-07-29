@@ -8,6 +8,7 @@ const Home: NextPage = () => {
   const { data: sessionData } = useSession();
 
   const { data } = api.repos.getRepos.useQuery();
+
   const [repos, setRepos] = useState(data);
   const [filter, setFilter] = useState<Set<string>>(new Set());
 

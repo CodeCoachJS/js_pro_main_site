@@ -14,7 +14,9 @@ const Header: NextComponentType = () => {
       <header>
         <nav className="flex flex-wrap items-center justify-between bg-black p-6">
           <div className="mr-6 flex flex-shrink-0 items-center text-white">
-            <span className="text-2xl font-bold tracking-tight">JS Pros</span>
+            <Link href="/">
+              <span className="text-2xl font-bold tracking-tight">JS Pros</span>
+            </Link>
           </div>
 
           <div className="lg:hidden">
