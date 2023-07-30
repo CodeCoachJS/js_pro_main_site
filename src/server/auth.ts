@@ -18,15 +18,8 @@ declare module "next-auth" {
     isMember: boolean;
     user: {
       id: string;
-      // ...other properties
-      // role: UserRole;
     } & DefaultSession["user"];
   }
-
-  // interface User {
-  //   // ...other properties
-  //   // role: UserRole;
-  // }
 }
 
 interface GitHubOrgUser {
@@ -59,27 +52,40 @@ interface GitHubOrgUser {
 export const authOptions: NextAuthOptions = {
   callbacks: {
     session: async ({ session }) => {
-      const url =
-        "https://api.github.com/orgs/CodeCoachJS/members?per_page=100";
+      const perPageAmount = 100;
+      const url = `https://api.github.com/orgs/CodeCoachJS/members?per_page=${perPageAmount}`;
       const headers = new Headers({
         Authorization: `Bearer ${env.GITHUB_PERSONAL_TOKEN || "NO_TOKEN"}`,
         Accept: "application/vnd.github+json",
       });
 
       try {
-        const res = await fetch(url, { headers });
+        let shouldFetch = true;
+        let page = 1;
+        let isMember = false;
 
-        if (res.ok) {
+        while (shouldFetch) {
+          const res = await fetch(`${url}&page=${page}`, { headers });
           const data: GitHubOrgUser[] = (await res.json()) as GitHubOrgUser[];
 
-          const isMember: boolean = data.some((member) => {
-            return member.avatar_url === session.user.image;
-          });
+          if (res.ok) {
+            isMember = data.some(
+              (member) => member.avatar_url === session.user.image
+            );
 
-          return { ...session, isMember };
-        } else {
-          throw new Error(`Failed to fetch members: ${res.statusText}`);
+            if (isMember) {
+              return { ...session, isMember };
+            }
+
+            if (data.length < perPageAmount) {
+              shouldFetch = false;
+            }
+            page += 1;
+          } else {
+            throw new Error(`Failed to fetch members: ${res.statusText}`);
+          }
         }
+        return { ...session, isMember };
       } catch (error) {
         return { ...session, isMember: false };
       }
