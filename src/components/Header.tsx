@@ -64,7 +64,7 @@ const Header: NextComponentType = () => {
               >
                 Recorded Weekly Meetings
               </Link>
-              {session.data ? (
+              {session.data?.isMember ? (
                 <>
                   <Link
                     href="/api/auth/signout"
