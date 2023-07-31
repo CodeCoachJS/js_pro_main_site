@@ -20,7 +20,24 @@ A non-auth user will see an overlay asking them to sign up if they are not part 
 
 Find an issue in the open issues tab https://github.com/CodeCoachJS/js_pro_main_site/issues and work with Brian to get it assigned so you can begin working on it.
 
-To get the project working locally you will need to add a `.env` file at the root of the project. Contact Brian via slack to get the environment variables and please do not share them with anyone else.
+To get the project working locally you will need to add a `.env` file at the root of the project.
+
+### Getting Started with Supabase
+
+You'll need to have Docker installed on your machine to run the supabase commands and create an account on supabase.
+
+```bash
+npx supabase login
+supabase start
+```
+
+Update your `.env` file with the correct supabase url from the previous command
+
+```bash
+supabase db reset
+```
+
+This should seed the database for local development
 
 **Git flow:**
 
