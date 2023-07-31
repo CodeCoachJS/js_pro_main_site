@@ -26,6 +26,8 @@ To get the project working locally you will need to add a `.env` file at the roo
 
 You'll need to have Docker installed on your machine to run the supabase commands and create an account on supabase.
 
+The docs are great and can be found here: https://supabase.com/docs/guides/cli/local-development#database-migrations
+
 ```bash
 npx supabase login
 supabase start
