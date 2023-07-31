@@ -31,10 +31,24 @@ npx supabase login
 supabase start
 ```
 
-Update your `.env` file with the correct supabase url from the previous command
+Update your `.env` file with the correct supabase url from the previous command.
+
+It should look like this
+
+```
+NEXTAUTH_SECRET=<your_nextauth_secret>
+NEXTAUTH_URL=http://localhost:3000
+GITHUB_ID=<your_github_id>
+GITHUB_SECRET=<your_github_secret>
+SUPABASE_SECRET=<your_supabase_secret>
+SUPABASE_URL=http://localhost:54321
+GITHUB_PERSONAL_TOKEN=<your_github_personal_token>
+```
+
+Now run
 
 ```bash
-supabase db reset
+npx supabase db reset
 ```
 
 This should seed the database for local development
