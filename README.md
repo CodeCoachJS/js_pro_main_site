@@ -2,7 +2,11 @@
 
 This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.
 
+---
+
 ## What is it?
+
+---
 
 A website to organize the challenges offered to members of **Not Another Course**.
 
@@ -16,13 +20,58 @@ For example, a user who is part of the course and signed in will see that all re
 
 A non-auth user will see an overlay asking them to sign up if they are not part of the program.
 
+---
+
 ### Contributing
+
+---
 
 Find an issue in the open issues tab https://github.com/CodeCoachJS/js_pro_main_site/issues and work with Brian to get it assigned so you can begin working on it.
 
-To get the project working locally you will need to add a `.env` file at the root of the project. Contact Brian via slack to get the environment variables and please do not share them with anyone else.
+To get the project working locally you will need to add a `.env` file at the root of the project.
 
-**Git flow:**
+---
+
+### Getting Started with Supabase
+
+---
+
+You'll need to have Docker installed on your machine to run the supabase commands and create an account on supabase.
+
+The docs are great and can be found here: https://supabase.com/docs/guides/cli/local-development#database-migrations
+
+```bash
+npx supabase login
+supabase start
+```
+
+Update your `.env` file with the correct supabase url from the previous command.
+
+It should look like this
+
+```
+NEXTAUTH_SECRET=<your_nextauth_secret>
+NEXTAUTH_URL=http://localhost:3000
+GITHUB_ID=<your_github_id>
+GITHUB_SECRET=<your_github_secret>
+SUPABASE_SECRET=<your_supabase_secret>
+SUPABASE_URL=http://localhost:54321
+GITHUB_PERSONAL_TOKEN=<your_github_personal_token>
+```
+
+Now run
+
+```bash
+npx supabase db reset
+```
+
+This should seed the database for local development
+
+---
+
+### Git flow
+
+---
 
 - create a branch off `main` with a sensible name (e.g. `fix_filtering_on_homepage`)
 

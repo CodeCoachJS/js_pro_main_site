@@ -52,6 +52,9 @@ interface GitHubOrgUser {
 export const authOptions: NextAuthOptions = {
   callbacks: {
     session: async ({ session }) => {
+      if (process.env.NODE_ENV === "development") {
+        return { ...session, isMember: true };
+      }
       const perPageAmount = 100;
       const url = `https://api.github.com/orgs/CodeCoachJS/members?per_page=${perPageAmount}`;
       const headers = new Headers({
