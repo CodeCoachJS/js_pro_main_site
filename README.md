@@ -42,10 +42,16 @@ The docs are great and can be found here: https://supabase.com/docs/guides/cli/l
 
 ```bash
 npx supabase login
-supabase start
+npx supabase start
 ```
 
-Update your `.env` file with the correct supabase url from the previous command.
+Update your `.env` file with the correct supabase `API URL` and supabase `service_role key` from the previous command.
+
+You can find the url and `service_role key` by running
+
+```bash
+ npx supabase status
+```
 
 It should look like this
 
@@ -54,7 +60,7 @@ NEXTAUTH_SECRET=<your_nextauth_secret>
 NEXTAUTH_URL=http://localhost:3000
 GITHUB_ID=<your_github_id>
 GITHUB_SECRET=<your_github_secret>
-SUPABASE_SECRET=<your_supabase_secret>
+SUPABASE_SECRET=<service_role key>
 SUPABASE_URL=http://localhost:54321
 GITHUB_PERSONAL_TOKEN=<your_github_personal_token>
 ```
