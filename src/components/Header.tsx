@@ -2,12 +2,15 @@ import { useState } from "react";
 import { type NextComponentType } from "next";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 const Header: NextComponentType = () => {
   const session = useSession();
+  const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
 
   const isNotMember = !session.data?.isMember;
+  const isHomePage = router.pathname === "/";
 
   return (
     <>
@@ -91,7 +94,7 @@ const Header: NextComponentType = () => {
           </div>
         </nav>
       </header>
-      {isNotMember && (
+      {isNotMember && !isHomePage && (
         <div>
           <div className="flex flex-wrap justify-center">
             <div className="w-full max-w-4xl">
