@@ -10,6 +10,7 @@ const Home: NextPage = () => {
   const { data } = api.repos.getRepos.useQuery();
   const [repos, setRepos] = useState(data);
   const [filter, setFilter] = useState<Set<string>>(new Set());
+  const [isSearching, setIsSearching] = useState<string>('')
 
   const categories = useMemo(() => {
     const categories = new Set<string>();
@@ -61,6 +62,14 @@ const Home: NextPage = () => {
     return days < 30;
   };
 
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const query = event.target.value
+    setIsSearching(query)
+    if (query.length >= 3){
+      isSearching(query.toLowerCase())
+    }
+  }
+
   const isNotMember = !sessionData || !sessionData?.isMember;
 
   return (
@@ -96,6 +105,12 @@ const Home: NextPage = () => {
             </button>
           ))}
         </div>
+        <input
+        type="text"
+        placeholder="Search..."
+            value={isSearching}
+            onChange={handleInputChange}
+      />
         <p className="text-center text-xl">
           Not sure where to start? I suggest checking out the main course
           material under <code>interview prep</code>
