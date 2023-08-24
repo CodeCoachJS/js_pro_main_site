@@ -10,7 +10,9 @@ const Home: NextPage = () => {
   const { data } = api.repos.getRepos.useQuery();
   const [repos, setRepos] = useState(data);
   const [filter, setFilter] = useState<Set<string>>(new Set());
-  const [isSearching, setIsSearching] = useState<string>('')
+  const [isSearching, setIsSearching] = useState<string>("");
+  // need to fix 
+  const [searchResults, setSearchResults] = useState<repo[]>([]);
 
   const categories = useMemo(() => {
     const categories = new Set<string>();
@@ -63,13 +65,41 @@ const Home: NextPage = () => {
   };
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const query = event.target.value
-    setIsSearching(query)
-    if (query.length >= 3){
-      isSearching(query.toLowerCase())
+    const query = event.target.value;
+    setIsSearching(query);
+
+    if (query.length >= 3) {
+      isSearching(query.toLowerCase());
+    } else {
+      setSearchResults([]);
     }
+  };
+
+  const performSearch = (query: string) => {
+    data?.forEach((repo) => {
+      const filteredResults = repo.filter
+
+      const title = repo.name
+      const description = repo.description
+      const categories = repo.repo_categories.map((cateogry) => category.category.name)
+    
+      if (
+        title.toLowerCase().includes(query.toLowerCase()) ||
+        description.toLowerCase().includes(query.toLowerCase()) ||
+        categories.some((category) => category.toLowerCase().includes(query.toLowerCase()))
+      ) {
+        filteredResults.push(repo)
+      }
+
+      console.log('debugD',`Repository Name: ${title}`);
+      console.log('debugD',`Repository Description: ${description}`);
+      console.log('debugD',`Repository Categories: ${categories.join(', ')}`);
+
+    })
+    setSearchResults(filteredResults);
   }
 
+ 
   const isNotMember = !sessionData || !sessionData?.isMember;
 
   return (
@@ -106,11 +136,11 @@ const Home: NextPage = () => {
           ))}
         </div>
         <input
-        type="text"
-        placeholder="Search..."
-            value={isSearching}
-            onChange={handleInputChange}
-      />
+          type="text"
+          placeholder="Search Respositories"
+          value={isSearching}
+          onChange={handleInputChange}
+        />
         <p className="text-center text-xl">
           Not sure where to start? I suggest checking out the main course
           material under <code>interview prep</code>
