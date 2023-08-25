@@ -11,8 +11,13 @@ const Home: NextPage = () => {
   const [repos, setRepos] = useState(data);
   const [filter, setFilter] = useState<Set<string>>(new Set());
   const [isSearching, setIsSearching] = useState<string>("");
-  // need to fix 
-  const [searchResults, setSearchResults] = useState<repo[]>([]);
+  const [searchResults, setSearchResults] = useState<Repository[]>([]);
+
+  interface Repository {
+    id: number;
+    name: string;
+    description: string;
+  }
 
   const categories = useMemo(() => {
     const categories = new Set<string>();
@@ -69,35 +74,31 @@ const Home: NextPage = () => {
     setIsSearching(query);
 
     if (query.length >= 3) {
-      isSearching(query.toLowerCase());
+      performSearch(query.toLowerCase());
     } else {
       setSearchResults([]);
     }
+  
+    function performSearch(query: string) {
+      const filteredResults: Repository[] = []; 
+  
+      data?.forEach((repo) => {
+        const title = repo.name;
+        const description = repo.description;
+        const categories = repo.repo_categories.map((category) => category.category.name);
+          console.log(title, description, categories, "[bugged]");
+        if (
+          title.toLowerCase().includes(query) ||
+          description.toLowerCase().includes(query) ||
+          categories.some((category) => category.toLowerCase().includes(query))
+        ) {
+          filteredResults.push(repo);
+        }
+      });
+      
+      setSearchResults(filteredResults);
+    }
   };
-
-  const performSearch = (query: string) => {
-    data?.forEach((repo) => {
-      const filteredResults = repo.filter
-
-      const title = repo.name
-      const description = repo.description
-      const categories = repo.repo_categories.map((cateogry) => category.category.name)
-    
-      if (
-        title.toLowerCase().includes(query.toLowerCase()) ||
-        description.toLowerCase().includes(query.toLowerCase()) ||
-        categories.some((category) => category.toLowerCase().includes(query.toLowerCase()))
-      ) {
-        filteredResults.push(repo)
-      }
-
-      console.log('debugD',`Repository Name: ${title}`);
-      console.log('debugD',`Repository Description: ${description}`);
-      console.log('debugD',`Repository Categories: ${categories.join(', ')}`);
-
-    })
-    setSearchResults(filteredResults);
-  }
 
  
   const isNotMember = !sessionData || !sessionData?.isMember;
