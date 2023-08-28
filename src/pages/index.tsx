@@ -17,6 +17,9 @@ const Home: NextPage = () => {
     id: number;
     name: string;
     description: string;
+    isPrivate: boolean;
+    url: string;
+    updated_at: string
   }
 
   const categories = useMemo(() => {
@@ -154,19 +157,19 @@ const Home: NextPage = () => {
             justifyContent: "center",
           }}
         >
-          {repos?.map((repo) => (
-            <a
-              key={repo.id}
-              href={isNotMember && repo.isPrivate ? "#" : repo.url}
-              target={isNotMember && repo.isPrivate ? "_self" : "_blank"}
-              rel="noopener noreferrer"
-              className="bg-card-bg text-card-text hover:bg-blue-lighter group relative mx-2 my-2 max-w-md overflow-hidden rounded-md shadow-lg transition-colors duration-200"
-              style={{
-                flex: "1 1 25%",
-                minWidth: "200px",
-              }}
+  {(isSearching.length <= 2 ? repos : searchResults)?.map((repo) => (
+  <a
+    key={repo?.id}
+    href={isNotMember && repo?.isPrivate ? "#" : repo.url}
+    target={isNotMember && repo?.isPrivate ? "_self" : "_blank"}
+    rel="noopener noreferrer"
+    className="bg-card-bg text-card-text hover:bg-blue-lighter group relative mx-2 my-2 max-w-md overflow-hidden rounded-md shadow-lg transition-colors duration-200"
+    style={{
+      flex: "1 1 25%",
+      minWidth: "200px",
+    }}
             >
-              {repo.isPrivate && isNotMember && (
+              {repo?.isPrivate && isNotMember && (
                 <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 opacity-0 transition-opacity duration-200 group-hover:opacity-100">
                   <p className="text-lg font-semibold text-white">
                     Members Only 😎
@@ -176,28 +179,28 @@ const Home: NextPage = () => {
 
               <div className="px-6 py-4">
                 <div className="text-blue-lighter mb-2 text-xl font-bold">
-                  {repo.name}
+                  {repo?.name}
                 </div>
-                <p className="text-base">{repo.description}</p>
+                <p className="text-base">{repo?.description}</p>
               </div>
               <a
                 className="px-6 py-4"
-                target={isNotMember && repo.isPrivate ? "_self" : "_blank"}
+                target={isNotMember && repo?.isPrivate ? "_self" : "_blank"}
                 rel="noopener noreferrer"
-                href={`${repo.url}/codespaces`}
+                href={`${repo?.url}/codespaces`}
               >
                 <button className="rounded border border-blue-500 bg-transparent px-4 py-2 font-semibold text-blue-700 hover:border-transparent hover:bg-blue-500 hover:text-white">
                   Open GitPod
                 </button>
               </a>
               <div className="px-6 py-4">
-                {isNewish(repo.updated_at) && (
+                {isNewish(repo?.updated_at) && (
                   <span className="mr-2 inline-block rounded-full bg-green-200 px-3 py-1 text-sm font-semibold text-gray-700">
                     new
                   </span>
                 )}
                 <span className="inline-block rounded-full bg-gray-200 px-3 py-1 text-sm font-semibold text-gray-700">
-                  {repo.isPrivate ? "Members Only" : "FREE"}
+                  {repo?.isPrivate ? "Members Only" : "FREE"}
                 </span>
               </div>
             </a>
