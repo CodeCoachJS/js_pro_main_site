@@ -9,6 +9,7 @@
     "start": "next start"
   },
   "dependencies": {
+    "@headlessui/react": "^1.7.17",
     "@heroicons/react": "^1.0.6",
     "@supabase/supabase-js": "^2.21.0",
     "@tanstack/react-query": "^4.28.0",
@@ -16,8 +17,8 @@
     "@trpc/next": "^10.18.0",
     "@trpc/react-query": "^10.18.0",
     "@trpc/server": "^10.18.0",
-    "heroicons": "^2.0.18",
     "eslint-plugin-unicorn": "^48.0.1",
+    "heroicons": "^2.0.18",
     "next": "^13.2.4",
     "next-auth": "^4.21.0",
     "react": "18.2.0",

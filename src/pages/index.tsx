@@ -4,10 +4,43 @@ import Head from "next/head";
 import Link from "next/link";
 import { getServerAuthSession } from "../server/auth";
 import { type GetServerSideProps } from "next";
+import TestimonialSlider from "~/components/Testimonials";
+
+export interface Testimonial {
+  quote: string;
+  name: string;
+  role: string;
+}
+
+const testimonials: Testimonial[] = [
+  {
+    quote:
+      "I've recently been working on your JS fundamentals portion... I'm getting my ass handed to me by these challenges haha",
+    name: "Paul",
+    role: "QA Automation Engineer",
+  },
+  {
+    quote:
+      "I'm amazed at how much I could benefit from just the first part of the first module.",
+    name: "Ali",
+    role: "Software engineer",
+  },
+  {
+    quote: "I got the job!",
+    name: "Vanessa",
+    role: "Frontend Software engineer",
+  },
+  {
+    quote:
+      "... best career decision I've made in the past few years. He always has great advice for any question I pose, and consistently leveled up my skills across the board",
+    name: "Ryan",
+    role: "Lead Software Engineer",
+  },
+];
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const session = await getServerAuthSession(ctx);
-  console.log(session);
+
   if (session?.isMember) {
     return {
       redirect: {
@@ -36,20 +69,18 @@ const Home: NextPage = () => {
       <main className="mx-auto flex max-w-3xl flex-col items-center gap-8 p-4">
         <div className="flex flex-col items-center gap-8">
           <h1 className="mb-4 mt-20 text-center text-4xl font-bold leading-[1.2em] md:text-6xl">
-            <span className="text-white">Practice Solving</span>
+            <span className="text-white">
+              Fast-Track Your Career in JavaScript Development{" "}
+            </span>
+
             <span className="bg-gradient-to-l from-indigo-500 to-pink-500 bg-clip-text text-transparent">
               <br />
-              Complex Problems.
+              By Solving Complex Problems.
             </span>
           </h1>
           <p className="max-w-xl text-center text-xl leading-relaxed text-white md:text-2xl">
-            Javascript stopped being easy a long time ago.
-          </p>
-
-          <p className="max-w-xl text-center text-xl leading-relaxed text-white md:text-2xl">
-            Learn all the stuff your bootcamp skipped. Webpack. Redux.
-            Node/Express. NextJS. Debugging production apps. DSA. Unit testing.
-            e2e. Way more than I can write here.
+            Real-world Challenges, Practical Exercises, and Weekly Live
+            Mentorship
           </p>
           <div>
             <Link
@@ -60,36 +91,12 @@ const Home: NextPage = () => {
             </Link>
           </div>
         </div>
+        <TestimonialSlider testimonials={testimonials} />
         <Image
           width={400}
           height={400}
           alt="lambda challenge"
           src="/group_shot.png"
-        />
-        <Image width={400} height={400} alt="video example" src="/videos.png" />
-        <Image
-          width={400}
-          height={400}
-          alt="lambda challenge"
-          src="/binary_search.png"
-        />
-        <Image
-          width={400}
-          height={400}
-          alt="lambda challenge"
-          src="/paul_testimonial.png"
-        />
-        <Image
-          width={400}
-          height={400}
-          alt="lambda challenge"
-          src="/lambda_challenge.png"
-        />
-        <Image
-          width={400}
-          height={400}
-          alt="lambda challenge"
-          src="/ali_testimonial.png"
         />
       </main>
 
