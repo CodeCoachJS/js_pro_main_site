@@ -83,4 +83,4 @@ This should seed the database for local development
 
 - open a pull request against the `main` branch when you're ready and add Brian as a reviewer
 
-- once your work has been approved, it will merged to `main` which triggers a deployment to the production site!
+- once your work has been approved, it will be merged to `main` which triggers a deployment to the production site!
