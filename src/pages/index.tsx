@@ -10,7 +10,7 @@ const Home: NextPage = () => {
   const { data } = api.repos.getRepos.useQuery();
   const [repos, setRepos] = useState(data);
   const [filter, setFilter] = useState<Set<string>>(new Set());
-  const [isSearching, setIsSearching] = useState<string>("");
+  const [searchVal, setSearchVal] = useState<string>("");
   const [searchResults, setSearchResults] = useState<Repository[]>([]);
 
   interface Repository {
@@ -19,7 +19,7 @@ const Home: NextPage = () => {
     description: string;
     isPrivate: boolean;
     url: string;
-    updated_at: string
+    updated_at: string;
   }
 
   const categories = useMemo(() => {
@@ -74,22 +74,17 @@ const Home: NextPage = () => {
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const query = event.target.value;
-    setIsSearching(query);
+    setSearchVal(query);
 
-    if (query.length >= 3) {
-      performSearch(query.toLowerCase());
-    } else {
-      setSearchResults([]);
-    }
-  
-    function performSearch(query: string) {
-      const filteredResults: Repository[] = []; 
-  
-      data?.forEach((repo) => {
+    const performSearch = (query: string) => {
+      const filteredResults: Repository[] = [];
+
+      data?.filter((repo) => {
         const title = repo.name;
         const description = repo.description;
-        const categories = repo.repo_categories.map((category) => category.category.name);
-          console.log(title, description, categories, "[bugged]");
+        const categories = repo.repo_categories.map(
+          (category) => category.category.name
+        );
         if (
           title.toLowerCase().includes(query) ||
           description.toLowerCase().includes(query) ||
@@ -98,12 +93,16 @@ const Home: NextPage = () => {
           filteredResults.push(repo);
         }
       });
-      
+
       setSearchResults(filteredResults);
+    };
+    if (query.length >= 3) {
+      performSearch(query.toLowerCase());
+    } else {
+      setSearchResults([]);
     }
   };
 
- 
   const isNotMember = !sessionData || !sessionData?.isMember;
 
   return (
@@ -142,7 +141,7 @@ const Home: NextPage = () => {
         <input
           type="text"
           placeholder="Search Respositories"
-          value={isSearching}
+          value={searchVal}
           onChange={handleInputChange}
         />
         <p className="text-center text-xl">
@@ -157,17 +156,17 @@ const Home: NextPage = () => {
             justifyContent: "center",
           }}
         >
-  {(isSearching.length <= 2 ? repos : searchResults)?.map((repo) => (
-  <a
-    key={repo?.id}
-    href={isNotMember && repo?.isPrivate ? "#" : repo.url}
-    target={isNotMember && repo?.isPrivate ? "_self" : "_blank"}
-    rel="noopener noreferrer"
-    className="bg-card-bg text-card-text hover:bg-blue-lighter group relative mx-2 my-2 max-w-md overflow-hidden rounded-md shadow-lg transition-colors duration-200"
-    style={{
-      flex: "1 1 25%",
-      minWidth: "200px",
-    }}
+          {(searchVal.length <= 2 ? repos : searchResults)?.map((repo) => (
+            <a
+              key={repo?.id}
+              href={isNotMember && repo?.isPrivate ? "#" : repo.url}
+              target={isNotMember && repo?.isPrivate ? "_self" : "_blank"}
+              rel="noopener noreferrer"
+              className="bg-card-bg text-card-text hover:bg-blue-lighter group relative mx-2 my-2 max-w-md overflow-hidden rounded-md shadow-lg transition-colors duration-200"
+              style={{
+                flex: "1 1 25%",
+                minWidth: "200px",
+              }}
             >
               {repo?.isPrivate && isNotMember && (
                 <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 opacity-0 transition-opacity duration-200 group-hover:opacity-100">
