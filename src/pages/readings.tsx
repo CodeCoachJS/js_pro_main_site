@@ -3,6 +3,7 @@ import { api } from "~/utils/api";
 import { useSession } from "next-auth/react";
 import { PRIVATE_PAGE_MESSAGE } from "~/consts";
 import PrivatePageWarning from "~/components/PrivatePage";
+import LoadingIcon from "~/components/LoadingIcon";
 
 const ReadingsPage: NextPage = () => {
   const { data } = api.documents.getDocuments.useQuery();
@@ -13,6 +14,8 @@ const ReadingsPage: NextPage = () => {
   if (!isLoggedIn) {
     return <PrivatePageWarning />;
   }
+
+  if (!data) return <LoadingIcon />;
 
   return (
     <div className="mt-10 flex items-center justify-center">
