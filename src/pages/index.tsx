@@ -1,4 +1,5 @@
 import { type NextPage } from "next";
+import { env } from "~/env.mjs";
 import { useEffect, useState, useMemo } from "react";
 import Head from "next/head";
 import { useSession } from "next-auth/react";
@@ -125,6 +126,9 @@ const Home: NextPage = () => {
                   <p className="text-lg font-semibold text-white">
                     Members Only 😎
                   </p>
+                  <button>
+                    <a href={env.NEXT_PUBLIC_STRIPE_URL}>Get Full Access</a>
+                  </button>
                 </div>
               )}
 
