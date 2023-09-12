@@ -122,13 +122,22 @@ const Home: NextPage = () => {
               }}
             >
               {repo.isPrivate && isNotMember && (
-                <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 opacity-0 transition-opacity duration-200 group-hover:opacity-100">
-                  <p className="text-lg font-semibold text-white">
-                    Members Only 😎
-                  </p>
-                  <button>
-                    <a href={env.NEXT_PUBLIC_STRIPE_URL}>Get Full Access</a>
-                  </button>
+                <div className="absolute inset-0 flex flex-col items-center justify-center bg-black bg-opacity-50 opacity-0 transition-opacity duration-200 group-hover:opacity-100">
+                  <div className="mb-2 text-center">
+                    <p className="text-lg font-semibold text-white">
+                      Members Only 😎
+                    </p>
+                  </div>
+                  <div className="text-center">
+                    <button
+                      onClick={() =>
+                        (window.location.href = env.NEXT_PUBLIC_STRIPE_URL)
+                      }
+                      className="bg-blue-500 px-4 py-2 text-lg font-semibold text-white hover:bg-blue-600"
+                    >
+                      Get Full Access
+                    </button>
+                  </div>
                 </div>
               )}
 
