@@ -3,6 +3,7 @@ import { useEffect, useState, useMemo } from "react";
 import Head from "next/head";
 import { useSession } from "next-auth/react";
 import { api } from "~/utils/api";
+import LoadingIcon from "~/components/LoadingIcon";
 
 const Home: NextPage = () => {
   const { data: sessionData } = useSession();
@@ -104,6 +105,8 @@ const Home: NextPage = () => {
   };
 
   const isNotMember = !sessionData || !sessionData?.isMember;
+
+  if (!data) return <LoadingIcon />;
 
   return (
     <>
