@@ -129,14 +129,6 @@ const Home: NextPage = () => {
                     </p>
                   </div>
                   <div className="text-center">
-                    {/* <button
-                      onClick={() =>
-                        (window.location.href = env.NEXT_PUBLIC_STRIPE_URL)
-                      }
-                      className="bg-blue-500 px-4 py-2 text-lg font-semibold text-white hover:bg-blue-600"
-                    >
-                      Get Full Access
-                    </button> */}
                     <a
                       href={env.NEXT_PUBLIC_STRIPE_URL}
                       target="_blank"
