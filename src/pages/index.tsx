@@ -66,31 +66,6 @@ const Home: NextPage = () => {
           alt="lambda challenge"
           src="/group_shot.png"
         />
-        <Image width={400} height={400} alt="video example" src="/videos.png" />
-        <Image
-          width={400}
-          height={400}
-          alt="lambda challenge"
-          src="/binary_search.png"
-        />
-        <Image
-          width={400}
-          height={400}
-          alt="lambda challenge"
-          src="/paul_testimonial.png"
-        />
-        <Image
-          width={400}
-          height={400}
-          alt="lambda challenge"
-          src="/lambda_challenge.png"
-        />
-        <Image
-          width={400}
-          height={400}
-          alt="lambda challenge"
-          src="/ali_testimonial.png"
-        />
       </main>
 
       <footer className="mt-8 p-4 text-center text-gray-500">
