@@ -1,6 +1,7 @@
 import { type NextPage } from "next";
 import { useEffect, useState, useMemo } from "react";
 import Head from "next/head";
+import Link from "next/link";
 import { useSession } from "next-auth/react";
 import { api } from "~/utils/api";
 
@@ -98,7 +99,10 @@ const Home: NextPage = () => {
         </div>
         <p className="text-center text-xl">
           Not sure where to start? I suggest checking out the main course
-          material under <code>interview prep</code>
+          material under <code>interview prep</code> or check out the{" "}
+          <Link className="text-blue-500 hover:text-blue-700" href="/syllabus">
+            Syllabus
+          </Link>
         </p>
         <div
           className="flex flex-wrap justify-center space-x-4 space-y-4"
