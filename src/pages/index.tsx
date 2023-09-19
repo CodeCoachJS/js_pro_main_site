@@ -1,4 +1,5 @@
 import { type NextPage } from "next";
+import { env } from "~/env.mjs";
 import { useEffect, useState, useMemo } from "react";
 import Head from "next/head";
 import Link from "next/link";
@@ -176,14 +177,25 @@ const Home: NextPage = () => {
                 minWidth: "200px",
               }}
             >
-              {repo?.isPrivate && isNotMember && (
-                <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 opacity-0 transition-opacity duration-200 group-hover:opacity-100">
-                  <p className="text-lg font-semibold text-white">
-                    Members Only 😎
-                  </p>
+              {repo.isPrivate && isNotMember && (
+                <div className="absolute inset-0 flex flex-col items-center justify-center bg-black bg-opacity-50 opacity-0 transition-opacity duration-200 group-hover:opacity-100">
+                  <div className="mb-2 text-center">
+                    <p className="text-lg font-semibold text-white">
+                      Members Only 😎
+                    </p>
+                  </div>
+                  <div className="text-center">
+                    <a
+                      href={env.NEXT_PUBLIC_STRIPE_URL}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="bg-blue-500 px-4 py-2 text-lg font-semibold text-white hover:bg-blue-600"
+                    >
+                      Get Full Access
+                    </a>
+                  </div>
                 </div>
               )}
-
               <div className="px-6 py-4">
                 <div className="text-blue-lighter mb-2 text-xl font-bold">
                   {repo?.name}
