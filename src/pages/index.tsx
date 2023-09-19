@@ -116,7 +116,14 @@ const Home: NextPage = () => {
         <meta name="description" content="JS Pros repos" />
       </Head>
       <main className="bg-purple min-h-screen">
-        <div className="mt-10 flex flex-wrap justify-center">
+        <input
+          type="text"
+          placeholder="Search Repositories"
+          value={searchVal}
+          onChange={handleInputChange}
+          className="mx-auto mb-2 block bg-purple-200 text-purple-800 border-2 border-purple-400 rounded-full px-4 py-2 focus:outline-none focus:border-purple-600 transition-colors duration-300"
+        />
+        <div className="mt-5 flex flex-wrap justify-center">
           <button
             key="all"
             className={`${
@@ -133,7 +140,7 @@ const Home: NextPage = () => {
               key={cat}
               className={`${
                 filter.has(cat)
-                  ? "bg-purple-700"
+                  ? "bg-purple-2=700"
                   : "bg-purple-500 hover:bg-purple-600"
               } mb-2 mr-2 flex items-center rounded-full px-4 py-2 font-semibold text-white no-underline transition`}
               onClick={() => filterByCategory(cat)}
@@ -142,13 +149,7 @@ const Home: NextPage = () => {
             </button>
           ))}
         </div>
-        <input
-          type="text"
-          placeholder="Search Respositories"
-          value={searchVal}
-          onChange={handleInputChange}
-        />
-        <p className="text-center text-xl">
+        <p className="text-center text-xl mt-2">
           Not sure where to start? I suggest checking out the main course
           material under <code>interview prep</code> or check out the{" "}
           <Link className="text-blue-500 hover:text-blue-700" href="/syllabus">
