@@ -1,8 +1,8 @@
 import { type NextPage } from "next";
-import { api } from "~/utils/api";
 import { useSession } from "next-auth/react";
-import PrivatePageWarning from "~/components/PrivatePage";
 import LoadingIcon from "~/components/LoadingIcon";
+import PrivatePageWarning from "~/components/PrivatePage";
+import { api } from "~/utils/api";
 
 const WeeklyMeetingVideos: NextPage = () => {
   const { data } = api.videos.getWeeklyMeetings.useQuery();
