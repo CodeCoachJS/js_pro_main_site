@@ -2,6 +2,7 @@ import { type NextPage } from "next";
 import { api } from "~/utils/api";
 import { useSession } from "next-auth/react";
 import PrivatePageWarning from "~/components/PrivatePage";
+import LoadingIcon from "~/components/LoadingIcon";
 
 const WeeklyMeetingVideos: NextPage = () => {
   const { data } = api.videos.getWeeklyMeetings.useQuery();
@@ -12,6 +13,8 @@ const WeeklyMeetingVideos: NextPage = () => {
   if (!isLoggedIn) {
     return <PrivatePageWarning />;
   }
+
+  if (!data) return <LoadingIcon />;
 
   return (
     <div className="mt-10 flex items-center justify-center">

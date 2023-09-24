@@ -31,6 +31,7 @@ const server = z.object({
  */
 const client = z.object({
   // NEXT_PUBLIC_CLIENTVAR: z.string().min(1),
+  NEXT_PUBLIC_STRIPE_URL: z.string().min(1)
 });
 
 /**
@@ -48,6 +49,7 @@ const processEnv = {
   GITHUB_PERSONAL_TOKEN: process.env.GITHUB_PERSONAL_TOKEN,
   SUPABASE_SECRET: process.env.SUPABASE_SECRET,
   SUPABASE_URL: process.env.SUPABASE_URL,
+  NEXT_PUBLIC_STRIPE_URL: process.env.NEXT_PUBLIC_STRIPE_URL
   // NEXT_PUBLIC_CLIENTVAR: process.env.NEXT_PUBLIC_CLIENTVAR,
 };
 

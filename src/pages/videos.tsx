@@ -2,12 +2,15 @@ import { type NextPage } from "next";
 import Image from "next/image";
 import { api } from "~/utils/api";
 import { useSession } from "next-auth/react";
+import LoadingIcon from "~/components/LoadingIcon";
 
 const VideosPage: NextPage = () => {
   const { data } = api.videos.getVideos.useQuery();
   const session = useSession();
 
   const isLoggedIn = session.data?.isMember;
+
+  if (!data) return <LoadingIcon />;
 
   return (
     <>
