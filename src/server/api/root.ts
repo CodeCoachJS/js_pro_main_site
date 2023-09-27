@@ -1,7 +1,7 @@
-import { createTRPCRouter } from "~/server/api/trpc";
+import { documents } from "~/server/api/routers/documents";
 import { repos } from "~/server/api/routers/repos";
 import { videos } from "~/server/api/routers/videos";
-import { documents } from "~/server/api/routers/documents";
+import { createTRPCRouter } from "~/server/api/trpc";
 /**
  * This is the primary router for your server.
  *
