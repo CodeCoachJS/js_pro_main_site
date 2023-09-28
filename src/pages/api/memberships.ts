@@ -1,10 +1,10 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { env } from "~/env.mjs";
- 
+
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'POST') {
     try {
-        const {email} = req.body;
+        const { email } = req.body as { email: string };
         const githubRes = await sendGitHubInvite(email);
 
         if (githubRes.status == 200) {
