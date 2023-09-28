@@ -6,6 +6,7 @@ import LoadingIcon from "~/components/LoadingIcon";
 
 const WeeklyMeetingVideos: NextPage = () => {
   const { data } = api.videos.getWeeklyMeetings.useQuery();
+
   const session = useSession();
 
   const isLoggedIn = session.data?.isMember;
