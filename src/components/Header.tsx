@@ -95,7 +95,7 @@ const Header: NextComponentType = () => {
           </div>
         </nav>
       </header>
-      {isNotMember && (
+      {/* {isNotMember && (
         <div>
           <div className="flex flex-wrap justify-center">
             <div className="w-full max-w-4xl">
@@ -126,7 +126,7 @@ const Header: NextComponentType = () => {
             </div>
           </div>
         </div>
-      )}
+      )} */}
     </>
   );
 };

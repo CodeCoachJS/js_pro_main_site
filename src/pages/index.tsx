@@ -108,8 +108,6 @@ const Home: NextPage = () => {
 
   const isNotMember = !sessionData || !sessionData?.isMember;
 
-  if (!data) return <LoadingIcon />;
-
   return (
     <>
       <Head>
@@ -117,12 +115,13 @@ const Home: NextPage = () => {
         <meta name="description" content="JS Pros repos" />
       </Head>
       <main className="bg-purple min-h-screen">
+        {!data && <LoadingIcon />}
         <input
           type="text"
           placeholder="Search Repositories"
           value={searchVal}
           onChange={handleInputChange}
-          className="mx-auto mb-2 block rounded-full border-2 border-purple-400 bg-purple-200 px-4 py-2 text-purple-800 transition-colors duration-300 focus:border-purple-600 focus:outline-none"
+          className="mx-auto mb-8 mt-8 block rounded-full border-2 border-purple-400 bg-purple-200 px-4 py-2 text-purple-800 transition-colors duration-300 focus:border-purple-600 focus:outline-none"
         />
         <div className="mt-5 flex flex-wrap justify-center">
           <button
