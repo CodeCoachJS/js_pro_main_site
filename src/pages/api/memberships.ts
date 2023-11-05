@@ -1,6 +1,3 @@
-/* eslint-disable @typescript-eslint/require-await */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import type { NextApiRequest, NextApiResponse } from "next";
 import { env } from "../../env.mjs";
 
@@ -9,7 +6,11 @@ export default async function handler(
   res: NextApiResponse
 ) {
   if (req.method === "POST") {
-    const { email } = req.body;
+    interface RequestBody {
+      email: string;
+    }
+
+    const { email } = req.body as RequestBody;
 
     const githubToken = env.GITHUB_PERSONAL_TOKEN;
 
@@ -29,11 +30,14 @@ export default async function handler(
     };
 
     try {
-      const request = await fetch(env.GITHUB_API_URL, config);
-      const response = await request.json();
-      console.log(response);
+      interface ApiResponse {
+        message: string;
+      }
 
-      return res.status(200).json({ message: `${email as string} added` });
+      const request = await fetch(env.GITHUB_API_URL, config);
+      const response = (await request.json()) as ApiResponse;
+
+      return res.status(200).json({ message: `${email} added` });
     } catch (error) {
       console.error(error);
       res
