@@ -10,8 +10,6 @@ const VideosPage: NextPage = () => {
 
   const isLoggedIn = session.data?.isMember;
 
-  if (!data) return <LoadingIcon />;
-
   return (
     <>
       <div
@@ -22,6 +20,7 @@ const VideosPage: NextPage = () => {
           justifyContent: "center",
         }}
       >
+        {!data && <LoadingIcon />}
         {data?.map((video) => (
           <div
             className="bg-card-bg text-card-text hover:bg-blue-lighter relative mx-2 my-2 max-w-md overflow-hidden rounded-md shadow-lg transition-colors duration-200"

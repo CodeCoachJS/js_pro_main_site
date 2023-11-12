@@ -6,6 +6,7 @@ import { api } from "~/utils/api";
 
 const WeeklyMeetingVideos: NextPage = () => {
   const { data } = api.videos.getWeeklyMeetings.useQuery();
+
   const session = useSession();
 
   const isLoggedIn = session.data?.isMember;
@@ -14,8 +15,6 @@ const WeeklyMeetingVideos: NextPage = () => {
     return <PrivatePageWarning />;
   }
 
-  if (!data) return <LoadingIcon />;
-
   return (
     <div className="mt-10 flex items-center justify-center">
       <div className="max-w-md rounded-md p-6 shadow-lg">
@@ -23,6 +22,7 @@ const WeeklyMeetingVideos: NextPage = () => {
           Weekly Meeting Recordings
         </h2>
         <ul className="space-y-4">
+          {!data && <LoadingIcon />}
           {data?.map((video) => (
             <li
               key={video.url}
