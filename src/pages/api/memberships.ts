@@ -1,15 +1,15 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { env } from "../../env.mjs";
 
+interface RequestBody {
+  email: string;
+}
+
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
   if (req.method === "POST") {
-    interface RequestBody {
-      email: string;
-    }
-
     const { email } = req.body as RequestBody;
 
     const githubToken = env.GITHUB_PERSONAL_TOKEN;
@@ -30,12 +30,7 @@ export default async function handler(
     };
 
     try {
-      interface ApiResponse {
-        message: string;
-      }
-
-      const request = await fetch(env.GITHUB_API_URL, config);
-      const response = (await request.json()) as ApiResponse;
+      await fetch(env.GITHUB_API_URL, config);
 
       return res.status(200).json({ message: `${email} added` });
     } catch (error) {
