@@ -1,11 +1,11 @@
 import { type NextPage } from "next";
-import { env } from "~/env.mjs";
-import { useEffect, useState, useMemo } from "react";
 import Head from "next/head";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
-import { api } from "~/utils/api";
+import { useEffect, useState, useMemo } from "react";
 import LoadingIcon from "~/components/LoadingIcon";
+import { env } from "~/env.mjs";
+import { api } from "~/utils/api";
 
 const Home: NextPage = () => {
   const { data: sessionData } = useSession();
