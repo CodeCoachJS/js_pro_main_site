@@ -1,9 +1,9 @@
 import { type NextPage } from "next";
-import Image from "next/image";
+import { type GetServerSideProps } from "next";
 import Head from "next/head";
+import Image from "next/image";
 import Link from "next/link";
 import { getServerAuthSession } from "../server/auth";
-import { type GetServerSideProps } from "next";
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const session = await getServerAuthSession(ctx);

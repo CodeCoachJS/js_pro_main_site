@@ -1,8 +1,8 @@
-import { useState } from "react";
 import { type NextComponentType } from "next";
-import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { useSession } from "next-auth/react";
+import { useState } from "react";
 
 const Header: NextComponentType = () => {
   const session = useSession();

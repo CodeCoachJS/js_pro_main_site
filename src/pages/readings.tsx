@@ -1,8 +1,8 @@
 import { type NextPage } from "next";
-import { api } from "~/utils/api";
 import { useSession } from "next-auth/react";
-import PrivatePageWarning from "~/components/PrivatePage";
 import LoadingIcon from "~/components/LoadingIcon";
+import PrivatePageWarning from "~/components/PrivatePage";
+import { api } from "~/utils/api";
 
 const ReadingsPage: NextPage = () => {
   const { data } = api.documents.getDocuments.useQuery();

@@ -1,8 +1,8 @@
 import { type NextPage } from "next";
 import Image from "next/image";
-import { api } from "~/utils/api";
 import { useSession } from "next-auth/react";
 import LoadingIcon from "~/components/LoadingIcon";
+import { api } from "~/utils/api";
 
 const VideosPage: NextPage = () => {
   const { data } = api.videos.getVideos.useQuery();
