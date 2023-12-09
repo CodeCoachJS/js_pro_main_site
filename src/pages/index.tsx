@@ -7,7 +7,7 @@ import { getServerAuthSession } from "../server/auth";
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const session = await getServerAuthSession(ctx);
-  console.log(session);
+
   if (session?.isMember) {
     return {
       redirect: {
@@ -47,9 +47,9 @@ const Home: NextPage = () => {
           </p>
 
           <p className="max-w-xl text-center text-xl leading-relaxed text-white md:text-2xl">
-            Learn all the stuff your bootcamp skipped. Webpack. Redux.
-            Node/Express. NextJS. Debugging production apps. DSA. Unit testing.
-            e2e. Way more than I can write here.
+            Learn tough stuff. Webpack. Redux. Node/Express. NextJS. Debugging
+            production apps. DSA. Unit testing. e2e. Way more than I can write
+            here.
           </p>
           <div>
             <Link
