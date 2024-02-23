@@ -3,6 +3,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
+import { env } from "../env.mjs";
 
 const Header: NextComponentType = () => {
   const session = useSession();
@@ -115,7 +116,7 @@ const Header: NextComponentType = () => {
                             <Link
                               target="_blank"
                               className="text-blue-500 hover:text-blue-700"
-                              href="https://yourcodecoach.com/not-another-course"
+                              href={env.NEXT_PUBLIC_STRIPE_URL}
                             >
                               Not Another Course{" "}
                             </Link>
