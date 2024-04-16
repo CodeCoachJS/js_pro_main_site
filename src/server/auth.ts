@@ -69,7 +69,7 @@ export const authOptions: NextAuthOptions = {
   callbacks: {
     // eslint-disable-next-line @typescript-eslint/require-await
     jwt: async ({ profile, token }) => {
-      console.log({ profile });
+      console.log({ profile, token });
       if (profile?.login) {
         token.profile = {
           id: profile.id,

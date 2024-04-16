@@ -11,7 +11,7 @@ const Header: NextComponentType = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const isNotMember = !session.data?.isMember;
-  console.log({ session });
+
   const isHomePage = router.pathname === "/";
 
   return (
