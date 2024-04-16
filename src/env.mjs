@@ -22,9 +22,10 @@ const server = z.object({
   GITHUB_SECRET: z.string(),
   SUPABASE_SECRET: z.string(),
   GITHUB_PERSONAL_TOKEN: z.string(),
+  GITHUB_PARSITY_TOKEN: z.string(),
   SUPABASE_URL: z.string(),
   GITHUB_API_URL: z.string(),
-  CODECOACH_KEY : z.string(),
+  CODECOACH_KEY: z.string(),
 });
 
 /**
@@ -33,7 +34,7 @@ const server = z.object({
  */
 const client = z.object({
   // NEXT_PUBLIC_CLIENTVAR: z.string().min(1),
-  NEXT_PUBLIC_STRIPE_URL: z.string().min(1)
+  NEXT_PUBLIC_STRIPE_URL: z.string().min(1),
 });
 
 /**
@@ -49,6 +50,7 @@ const processEnv = {
   GITHUB_ID: process.env.GITHUB_ID,
   GITHUB_SECRET: process.env.GITHUB_SECRET,
   GITHUB_PERSONAL_TOKEN: process.env.GITHUB_PERSONAL_TOKEN,
+  GITHUB_PARSITY_TOKEN: process.env.GITHUB_PARSITY_TOKEN,
   SUPABASE_SECRET: process.env.SUPABASE_SECRET,
   SUPABASE_URL: process.env.SUPABASE_URL,
   NEXT_PUBLIC_STRIPE_URL: process.env.NEXT_PUBLIC_STRIPE_URL,
