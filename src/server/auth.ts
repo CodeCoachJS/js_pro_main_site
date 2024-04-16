@@ -79,7 +79,7 @@ export const authOptions: NextAuthOptions = {
           login: profile.login,
         };
       }
-      return { token, profile };
+      return { ...token };
     },
     session: async ({ session, token }) => {
       console.log({ session, token }, "session");
