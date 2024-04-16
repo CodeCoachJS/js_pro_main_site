@@ -69,7 +69,7 @@ export const authOptions: NextAuthOptions = {
   callbacks: {
     // eslint-disable-next-line @typescript-eslint/require-await
     jwt: async ({ profile, token }) => {
-      console.log({ profile, token });
+      console.log({ profile, token }, "jwt");
       if (profile?.login) {
         token.profile = {
           id: profile.id,
@@ -79,11 +79,10 @@ export const authOptions: NextAuthOptions = {
           login: profile.login,
         };
       }
-      return token;
+      return { token, profile };
     },
-
     session: async ({ session, token }) => {
-      console.log({ session, token });
+      console.log({ session, token }, "session");
       const ORG_TOKENS = [
         { name: "CodeCoachJS", token: env.GITHUB_PERSONAL_TOKEN },
         { name: "projectshft", token: env.GITHUB_PARSITY_TOKEN },
