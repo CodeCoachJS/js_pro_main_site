@@ -17,6 +17,7 @@ declare module "next-auth" {
       name: string;
       email: string;
     };
+    isMember: boolean;
   }
 
   interface Profile {
