@@ -93,6 +93,8 @@ export const authOptions: NextAuthOptions = {
         ORG_TOKENS.map((org) => _checkOrgMembership(org, loginName))
       );
 
+      console.info({ results });
+
       const isMember = results.some(
         (result) => result.status === "fulfilled" && result.value
       );
