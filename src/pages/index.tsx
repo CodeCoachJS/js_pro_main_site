@@ -6,6 +6,7 @@ import Link from "next/link";
 import { getServerAuthSession } from "../server/auth";
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  ctx.res.setHeader("Cache-Control", "no-store, max-age=0");
   const session = await getServerAuthSession(ctx);
 
   if (session?.isMember) {

@@ -69,16 +69,15 @@ export const authOptions: NextAuthOptions = {
   callbacks: {
     // eslint-disable-next-line @typescript-eslint/require-await
     jwt: async ({ profile, token }) => {
-      console.log({ profile, token }, "jwt");
       if (profile?.login) {
         token.profile = {
           id: profile.id,
           name: profile.name,
           email: profile.email,
-          image: profile.image,
           login: profile.login,
         };
       }
+      console.log({ profile, token }, "jwt");
       return { ...token };
     },
     session: async ({ session, token }) => {
@@ -119,12 +118,10 @@ export const authOptions: NextAuthOptions = {
       clientId: env.GITHUB_ID,
       clientSecret: env.GITHUB_SECRET,
       profile(profile: GithubProfile) {
-        console.log({ profile }, "profile");
         return {
           id: profile.id.toString(),
           name: profile.name ?? profile.login,
           email: profile.email,
-          image: profile.avatar_url,
           login: profile.login,
         };
       },
