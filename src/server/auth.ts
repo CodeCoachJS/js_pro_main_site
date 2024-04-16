@@ -1,5 +1,6 @@
 import { type GetServerSidePropsContext } from "next";
 import { getServerSession, type NextAuthOptions } from "next-auth";
+import type { DefaultSession } from "next-auth";
 import GitHubProvider from "next-auth/providers/github";
 import type { GithubProfile } from "next-auth/providers/github";
 import { env } from "~/env.mjs";
@@ -11,13 +12,13 @@ import { env } from "~/env.mjs";
  * @see https://next-auth.js.org/getting-started/typescript#module-augmentation
  */
 declare module "next-auth" {
-  interface Session {
+  interface Session extends DefaultSession {
+    isMember: boolean;
     user: {
       id: string;
       name: string;
       email: string;
-    };
-    isMember: boolean;
+    } & DefaultSession["user"];
   }
 
   interface Profile {
