@@ -1,10 +1,8 @@
 import { type GetServerSidePropsContext } from "next";
-import {
-  getServerSession,
-  type NextAuthOptions,
-  type DefaultSession,
-} from "next-auth";
+import { getServerSession, type NextAuthOptions } from "next-auth";
+import type { DefaultSession } from "next-auth";
 import GitHubProvider from "next-auth/providers/github";
+import type { GithubProfile } from "next-auth/providers/github";
 import { env } from "~/env.mjs";
 
 /**
@@ -18,30 +16,48 @@ declare module "next-auth" {
     isMember: boolean;
     user: {
       id: string;
+      name: string;
+      email: string;
     } & DefaultSession["user"];
+  }
+
+  interface Profile {
+    id: string;
+    image?: string;
+    login?: string;
   }
 }
 
-interface GitHubOrgUser {
-  login: string;
-  id: number;
-  node_id: string;
-  avatar_url: string;
-  gravatar_id: string;
-  url: string;
-  html_url: string;
-  type: string;
-  site_admin: boolean;
-  name: string;
-  company: string;
-  blog: string;
-  location: string;
-  public_repos: number;
-  public_gists: number;
-  followers: number;
-  following: number;
-  created_at: string;
-  updated_at: string;
+declare module "next-auth/jwt" {
+  interface JWT {
+    profile: {
+      id?: string;
+      name?: string;
+      email?: string;
+      image?: string;
+      login?: string;
+    };
+  }
+}
+
+async function _checkOrgMembership(
+  org: { name: string; token: string },
+  userName: string
+): Promise<boolean> {
+  const url = `https://api.github.com/orgs/${org.name}/members/${userName}`;
+
+  const headers = new Headers({
+    Authorization: `Bearer ${org.token}`,
+    Accept: "application/vnd.github+json",
+  });
+
+  try {
+    const response = await fetch(url, { headers });
+    return response.ok; // Returns true if the member exists in org
+  } catch (error) {
+    console.error(`Failed to check membership for ${org.name}`);
+    return false; // Continue checking other orgs
+  }
 }
 
 /**
@@ -51,55 +67,59 @@ interface GitHubOrgUser {
  */
 export const authOptions: NextAuthOptions = {
   callbacks: {
-    session: async ({ session }) => {
+    // eslint-disable-next-line @typescript-eslint/require-await
+    jwt: async ({ profile, token }) => {
+      if (profile?.login) {
+        token.profile = {
+          id: profile.id,
+          name: profile.name,
+          email: profile.email,
+          image: profile.image,
+          login: profile.login,
+        };
+      }
+      return token;
+    },
+
+    session: async ({ session, token }) => {
+      const ORG_TOKENS = [
+        { name: "CodeCoachJS", token: env.GITHUB_PERSONAL_TOKEN },
+        { name: "projectshft", token: env.GITHUB_PARSITY_TOKEN },
+      ];
+
+      const loginName = token.profile.login ?? "";
+
+      const results = await Promise.allSettled(
+        ORG_TOKENS.map((org) => _checkOrgMembership(org, loginName))
+      );
+
+      const isMember = results.some(
+        (result) => result.status === "fulfilled" && result.value
+      );
+
+      // If we're in development, we'll just assume the user is a member.
       if (process.env.NODE_ENV === "development") {
         return { ...session, isMember: true };
       }
-      const perPageAmount = 100;
-      const url = `https://api.github.com/orgs/CodeCoachJS/members?per_page=${perPageAmount}`;
-      const headers = new Headers({
-        Authorization: `Bearer ${env.GITHUB_PERSONAL_TOKEN || "NO_TOKEN"}`,
-        Accept: "application/vnd.github+json",
-      });
-
-      try {
-        let shouldFetch = true;
-        let page = 1;
-        let isMember = false;
-
-        while (shouldFetch) {
-          const res = await fetch(`${url}&page=${page}`, { headers });
-          const data: GitHubOrgUser[] = (await res.json()) as GitHubOrgUser[];
-
-          if (res.ok) {
-            isMember = data.some(
-              (member) => member.avatar_url === session.user.image
-            );
-
-            if (isMember) {
-              return { ...session, isMember };
-            }
-
-            if (data.length < perPageAmount) {
-              shouldFetch = false;
-            }
-            page += 1;
-          } else {
-            throw new Error(`Failed to fetch members: ${res.statusText}`);
-          }
-        }
-        return { ...session, isMember };
-      } catch (error) {
-        return { ...session, isMember: false };
-      }
+      return { ...session, isMember };
     },
   },
 
   providers: [
-    GitHubProvider({
+    GitHubProvider<GithubProfile>({
       clientId: env.GITHUB_ID,
       clientSecret: env.GITHUB_SECRET,
+      profile(profile: GithubProfile) {
+        return {
+          id: profile.id.toString(),
+          name: profile.name ?? profile.login,
+          email: profile.email,
+          image: profile.avatar_url,
+          login: profile.login,
+        };
+      },
     }),
+
     /**
      * ...add more providers here.
      *
