@@ -90,7 +90,13 @@ export const authOptions: NextAuthOptions = {
       const loginName = token.profile.login ?? "";
 
       const results = await Promise.allSettled(
-        ORG_TOKENS.map((org) => _checkOrgMembership(org, loginName))
+        ORG_TOKENS.map((org) =>
+          _checkOrgMembership(org, loginName).catch((e) => {
+            console.error(e);
+            console.error(`Failed to check membership for ${org.name}`);
+            return false;
+          })
+        )
       );
 
       console.info({ results });
