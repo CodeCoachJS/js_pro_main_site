@@ -64,14 +64,19 @@ async function _checkOrgMembership(
  * @see https://next-auth.js.org/configuration/options
  */
 export const authOptions: NextAuthOptions = {
+  secret: env.NEXTAUTH_SECRET,
   callbacks: {
     // eslint-disable-next-line @typescript-eslint/require-await
     jwt: async ({ profile, token }) => {
-      if (profile?.login) {
-        token.login = profile.login;
+      if (profile && token) {
+        token.profile = {
+          id: profile.id.toString(),
+          name: profile.name ?? profile.login,
+          email: profile.email,
+          login: profile.login,
+        };
       }
-      console.log({ profile, token }, "jwt");
-      return token;
+      return token || {};
     },
     session: async ({ session, token }) => {
       console.log({ session, token }, "session");
@@ -80,7 +85,7 @@ export const authOptions: NextAuthOptions = {
         { name: "projectshft", token: env.GITHUB_PARSITY_TOKEN },
       ];
 
-      const loginName = token.profile.login ?? "";
+      const loginName = token?.profile?.login ?? "";
 
       const results = await Promise.allSettled(
         ORG_TOKENS.map((org) =>
