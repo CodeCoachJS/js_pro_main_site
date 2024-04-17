@@ -69,7 +69,7 @@ const Home: NextPage = () => {
       </main>
 
       <footer className="mt-8 p-4 text-center text-gray-500">
-        <p>&copy; 2023 Not Another Course. All rights reserved.</p>
+        <p>&copy; 2024 Not Another Course. All rights reserved.</p>
       </footer>
     </div>
   );
