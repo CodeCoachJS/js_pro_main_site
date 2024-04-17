@@ -69,18 +69,18 @@ export const authOptions: NextAuthOptions = {
   },
   secret: env.NEXTAUTH_SECRET,
   callbacks: {
-    jwt: async ({ profile, token }) => {
-      console.log({ profile, token }, "jwt");
-      if (profile && token) {
-        token.profile = {
-          id: profile.id.toString(),
-          name: profile.name ?? profile.login,
-          email: profile.email,
-          login: profile.login,
-        };
-      }
-      return Promise.resolve(token);
-    },
+    // jwt: async ({ profile, token }) => {
+    //   console.log({ profile, token }, "jwt");
+    //   if (profile && token) {
+    //     token.profile = {
+    //       id: profile.id.toString(),
+    //       name: profile.name ?? profile.login,
+    //       email: profile.email,
+    //       login: profile.login,
+    //     };
+    //   }
+    //   return Promise.resolve(token);
+    // },
     session: async ({ session, token }) => {
       console.log({ session, token }, "session");
       const ORG_TOKENS = [
