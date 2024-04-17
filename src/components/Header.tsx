@@ -122,7 +122,7 @@ const Header: NextComponentType = () => {
                               Not Another Course{" "}
                             </Link>
                             and get full access to all the challenges and videos
-                            + Slack access and weekly meetups
+                            + Slack access and online meetups
                           </h3>
                         </div>
                       </div>

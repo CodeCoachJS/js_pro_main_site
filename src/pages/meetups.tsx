@@ -19,7 +19,7 @@ const WeeklyMeetingVideos: NextPage = () => {
     <div className="mt-10 flex items-center justify-center">
       <div className="max-w-md rounded-md p-6 shadow-lg">
         <h2 className="mb-4 text-center text-2xl font-bold">
-          Weekly Meeting Recordings
+          Meeting Recordings
         </h2>
         <ul className="space-y-4">
           {!data && <LoadingIcon />}
@@ -34,7 +34,7 @@ const WeeklyMeetingVideos: NextPage = () => {
                 rel="noopener noreferrer"
                 className="text-blue-500 hover:text-blue-700"
               >
-                {video.description || "Weekly Meeting"}
+                {video.description || "Meeting of the 🧠"}
               </a>
             </li>
           ))}
