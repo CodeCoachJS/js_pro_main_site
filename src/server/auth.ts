@@ -64,6 +64,9 @@ async function _checkOrgMembership(
  * @see https://next-auth.js.org/configuration/options
  */
 export const authOptions: NextAuthOptions = {
+  session: {
+    strategy: "jwt",
+  },
   secret: env.NEXTAUTH_SECRET,
   callbacks: {
     jwt: async ({ profile, token }) => {
