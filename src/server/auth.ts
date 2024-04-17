@@ -23,7 +23,6 @@ declare module "next-auth" {
 
   interface Profile {
     id: string;
-    image?: string;
     login?: string;
   }
 }
@@ -34,7 +33,6 @@ declare module "next-auth/jwt" {
       id?: string;
       name?: string;
       email?: string;
-      image?: string;
       login?: string;
     };
   }
@@ -70,15 +68,10 @@ export const authOptions: NextAuthOptions = {
     // eslint-disable-next-line @typescript-eslint/require-await
     jwt: async ({ profile, token }) => {
       if (profile?.login) {
-        token.profile = {
-          id: profile.id,
-          name: profile.name,
-          email: profile.email,
-          login: profile.login,
-        };
+        token.login = profile.login;
       }
       console.log({ profile, token }, "jwt");
-      return { ...token };
+      return token;
     },
     session: async ({ session, token }) => {
       console.log({ session, token }, "session");
