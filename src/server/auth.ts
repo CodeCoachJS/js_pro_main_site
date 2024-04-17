@@ -66,7 +66,6 @@ async function _checkOrgMembership(
 export const authOptions: NextAuthOptions = {
   secret: env.NEXTAUTH_SECRET,
   callbacks: {
-    // eslint-disable-next-line @typescript-eslint/require-await
     jwt: async ({ profile, token }) => {
       console.log({ profile, token }, "jwt");
       if (profile && token) {
@@ -77,7 +76,7 @@ export const authOptions: NextAuthOptions = {
           login: profile.login,
         };
       }
-      return token || {};
+      return Promise.resolve(token);
     },
     session: async ({ session, token }) => {
       console.log({ session, token }, "session");
