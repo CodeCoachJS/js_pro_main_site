@@ -70,7 +70,6 @@ export const authOptions: NextAuthOptions = {
   secret: env.NEXTAUTH_SECRET,
   callbacks: {
     jwt: async ({ profile, token }) => {
-      console.log({ profile, token }, "jwt");
       if (profile && token) {
         token.profile = {
           id: profile.id.toString(),
@@ -82,7 +81,6 @@ export const authOptions: NextAuthOptions = {
       return Promise.resolve(token);
     },
     session: async ({ session, token }) => {
-      console.log({ session, token }, "session");
       const ORG_TOKENS = [
         { name: "CodeCoachJS", token: env.GITHUB_PERSONAL_TOKEN },
         { name: "projectshft", token: env.GITHUB_PARSITY_TOKEN },
@@ -99,8 +97,6 @@ export const authOptions: NextAuthOptions = {
           })
         )
       );
-
-      console.info({ results });
 
       const isMember = results.some(
         (result) => result.status === "fulfilled" && result.value
