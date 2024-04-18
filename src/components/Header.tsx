@@ -122,7 +122,7 @@ const Header: NextComponentType = () => {
                               Not Another Course{" "}
                             </Link>
                             and get full access to all the challenges and videos
-                            + Slack access and online meetups
+                            + Slack access which is worth the price alone.
                           </h3>
                         </div>
                       </div>
