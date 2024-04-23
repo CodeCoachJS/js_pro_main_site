@@ -31,6 +31,27 @@ const MyApp: AppType<{ session: Session | null }> = ({
       <SessionProvider session={session}>
         <Header />
         <Component {...pageProps} />
+        <Script
+          id="stripe_affiliate"
+          dangerouslySetInnerHTML={{
+            __html: `(function () {
+            var cookie = document.cookie.match('(^|;)\\s*trakdesk_cid\\s*=\\s*([^;]+)');
+            if (Array.isArray(cookie)) {
+                try {
+                    var trakdeskCid = JSON.parse(cookie.pop());
+                    var cid = trakdeskCid['cid'];
+                    document.querySelectorAll('a[href^="https://buy.stripe.com/"]').forEach(function (a) {
+                        var url = new URL(a.href);
+                        url.searchParams.set('client_reference_id', cid);
+                        a.href = url.href;
+                    });
+                } catch (e) {
+                    console.log(e);
+                }
+            }
+        })();`,
+          }}
+        />
       </SessionProvider>
     </>
   );
