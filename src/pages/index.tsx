@@ -91,8 +91,8 @@ const Home: NextPage = () => {
 
         <p className="max-w-xl text-center text-xl md:text-2xl">
           {" "}
-          I want to help you land your dream job and navigate the industry. I've
-          been a developer for over 10 years. I want to help you avoid the
+          I want to help you land your dream job and navigate the industry. I
+          have been writing code for a decade. I want to help you avoid the
           pitfalls and mistakes I made.
         </p>
 
