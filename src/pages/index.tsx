@@ -41,7 +41,7 @@ const Home: NextPage = () => {
           </span>
         </h1>
         <h2 className="block bg-gradient-to-l from-indigo-500 to-pink-500 bg-clip-text text-transparent">
-          You graudated the bootcamp. Now what?
+          You graduated the bootcamp. Now what?
         </h2>
 
         <Image
