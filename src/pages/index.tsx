@@ -107,8 +107,7 @@ const Home: NextPage = () => {
         <p className="max-w-xl text-center text-xl md:text-2xl">
           No subscription fees. Just one low price and it is yours for life. The
           Slack access is worth the price alone. You are going to learn a ton
-          and have a great time doing it. I can not wait to see you in the
-          community.
+          and have a great time doing it. I can not wait to see you inside.
         </p>
 
         <Link
