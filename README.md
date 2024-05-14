@@ -71,7 +71,7 @@ Now run
 npx supabase db reset
 ```
 
-This should seed the database for local development
+This should seed the database for local development.
 
 ---
 
