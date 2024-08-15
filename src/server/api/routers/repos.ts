@@ -49,11 +49,11 @@ export const repos = createTRPCRouter({
     const transformedData: RepoWithCategories[] =
       data.map((repo): RepoWithCategories => {
         const categories: string[] = repo.repo_categories.map(
-          (category: Category) => {
-            return category.category.name;
-          }
+          (category: Category) => category.category.name
         );
-        return { ...repo, categories } as RepoWithCategories;
+        const githubUrl = `https://github.com/CodeCoachJS/${repo.name}`;
+        console.log(`Repo: ${repo.name}, GitHub URL: ${githubUrl}`);
+        return { ...repo, categories, url: githubUrl } as RepoWithCategories;
       }) || [];
 
     return transformedData;

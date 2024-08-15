@@ -6,7 +6,7 @@ import { useEffect, useState, useMemo } from "react";
 import LoadingIcon from "~/components/LoadingIcon";
 import { env } from "~/env.mjs";
 import { api } from "~/utils/api";
-
+// current version
 interface Repository {
   id: number;
   name: string;
@@ -180,7 +180,7 @@ const Home: NextPage = () => {
                     </p>
                   </div>
                   <div className="text-center">
-                    
+                    <a
                       href={env.NEXT_PUBLIC_STRIPE_URL}
                       target="_blank"
                       rel="noopener noreferrer"

@@ -9,7 +9,7 @@ const ChallengePage: React.FC = () => {
   const [readmeContent, setReadmeContent] = useState<string | null>(null);
 
   // Decode the name from the URL
-  const decodedName = typeof name === 'string' ? decodeURIComponent(name) : '';
+  const decodedName = typeof name === "string" ? decodeURIComponent(name) : "";
 
   // Fetch repo data using the name
   const { data: repo, isLoading } = api.repos.getRepoByName.useQuery(
@@ -20,7 +20,9 @@ const ChallengePage: React.FC = () => {
   useEffect(() => {
     if (repo?.name) {
       // Fetch the README.md from the corresponding GitHub repo
-      fetch(`https://raw.githubusercontent.com/CodeCoachJS/${repo.name}/main/README.md`)
+      fetch(
+        `https://raw.githubusercontent.com/CodeCoachJS/${repo.name}/main/README.md`
+      )
         .then((response) => response.text())
         .then((text) => setReadmeContent(text))
         .catch((error) => console.error("Error fetching README:", error));
@@ -38,7 +40,7 @@ const ChallengePage: React.FC = () => {
       ) : (
         <p>Loading README...</p>
       )}
-      
+      <a
         href={repo.url}
         target="_blank"
         rel="noopener noreferrer"
