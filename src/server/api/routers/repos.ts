@@ -1,7 +1,7 @@
 import type { PostgrestResponse } from "@supabase/supabase-js";
-
 import { supabase } from "~/pages/api/trpc/[trpc]";
 import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
+import { z } from "zod"; // Import zod for input validation
 
 interface Category {
   category: {
@@ -29,18 +29,18 @@ export const repos = createTRPCRouter({
       .from("repos")
       .select(
         `
-      id,
-      name,
-      url,
-      description,
-      updated_at,
-      isPrivate,
-      repo_categories (
-        category: categories ( name )
+        id,
+        name,
+        url,
+        description,
+        updated_at,
+        isPrivate,
+        repo_categories (
+          category: categories ( name )
+        )
+      `
       )
-      sort: updated_at, asc
-    `
-      );
+      .order("updated_at", { ascending: false }); // Sort by updated_at in descending order
 
     if (error) {
       throw error;
@@ -58,4 +58,43 @@ export const repos = createTRPCRouter({
 
     return transformedData;
   }),
+
+  // New procedure to get a repo by name
+  getRepoByName: publicProcedure
+    .input(z.object({ name: z.string() }))
+    .query(async ({ input }): Promise<RepoWithCategories | null> => {
+      const { data, error }: PostgrestResponse<Repo> = await supabase
+        .from("repos")
+        .select(
+          `
+          id,
+          name,
+          url,
+          description,
+          updated_at,
+          isPrivate,
+          repo_categories (
+            category: categories ( name )
+          )
+        `
+        )
+        .eq("name", input.name)
+        .single();
+
+      if (error) {
+        throw error;
+      }
+
+      if (!data) {
+        return null;
+      }
+
+      const categories: string[] = data.repo_categories.map(
+        (category: Category) => {
+          return category.category.name;
+        }
+      );
+
+      return { ...data, categories } as RepoWithCategories;
+    }),
 });

@@ -7,6 +7,15 @@ import LoadingIcon from "~/components/LoadingIcon";
 import { env } from "~/env.mjs";
 import { api } from "~/utils/api";
 
+interface Repository {
+  id: number;
+  name: string;
+  description: string;
+  isPrivate: boolean;
+  url: string;
+  updated_at: string;
+}
+
 const Home: NextPage = () => {
   const { data: sessionData } = useSession();
 
@@ -15,15 +24,6 @@ const Home: NextPage = () => {
   const [filter, setFilter] = useState<Set<string>>(new Set());
   const [searchVal, setSearchVal] = useState<string>("");
   const [searchResults, setSearchResults] = useState<Repository[]>([]);
-
-  interface Repository {
-    id: number;
-    name: string;
-    description: string;
-    isPrivate: boolean;
-    url: string;
-    updated_at: string;
-  }
 
   const categories = useMemo(() => {
     const categories = new Set<string>();
@@ -85,9 +85,7 @@ const Home: NextPage = () => {
       data?.filter((repo) => {
         const title = repo.name;
         const description = repo.description;
-        const categories = repo.repo_categories.map(
-          (category) => category.category.name
-        );
+        const categories = repo.categories || [];
         if (
           title.toLowerCase().includes(query) ||
           description.toLowerCase().includes(query) ||
@@ -165,11 +163,9 @@ const Home: NextPage = () => {
           }}
         >
           {(searchVal.length <= 2 ? repos : searchResults)?.map((repo) => (
-            <a
+            <Link
               key={repo?.id}
-              href={isNotMember && repo?.isPrivate ? "#" : repo.url}
-              target={isNotMember && repo?.isPrivate ? "_self" : "_blank"}
-              rel="noopener noreferrer"
+              href={`/challenges/${encodeURIComponent(repo?.name)}`}
               className="bg-card-bg text-card-text hover:bg-blue-lighter group relative mx-2 my-2 max-w-md overflow-hidden rounded-md shadow-lg transition-colors duration-200"
               style={{
                 flex: "1 1 25%",
@@ -184,7 +180,7 @@ const Home: NextPage = () => {
                     </p>
                   </div>
                   <div className="text-center">
-                    <a
+                    
                       href={env.NEXT_PUBLIC_STRIPE_URL}
                       target="_blank"
                       rel="noopener noreferrer"
@@ -201,16 +197,6 @@ const Home: NextPage = () => {
                 </div>
                 <p className="text-base">{repo?.description}</p>
               </div>
-              <a
-                className="px-6 py-4"
-                target={isNotMember && repo?.isPrivate ? "_self" : "_blank"}
-                rel="noopener noreferrer"
-                href={`${repo?.url}/codespaces`}
-              >
-                <button className="rounded border border-blue-500 bg-transparent px-4 py-2 font-semibold text-blue-700 hover:border-transparent hover:bg-blue-500 hover:text-white">
-                  Open GitPod
-                </button>
-              </a>
               <div className="px-6 py-4">
                 {isNewish(repo?.updated_at) && (
                   <span className="mr-2 inline-block rounded-full bg-green-200 px-3 py-1 text-sm font-semibold text-gray-700">
@@ -221,7 +207,7 @@ const Home: NextPage = () => {
                   {repo?.isPrivate ? "Members Only" : "FREE"}
                 </span>
               </div>
-            </a>
+            </Link>
           ))}
         </div>
       </main>
