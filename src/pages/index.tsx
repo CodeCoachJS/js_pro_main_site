@@ -28,7 +28,7 @@ const Home: NextPage = () => {
         <title>Not Another Course</title>
         <meta
           name="description"
-          content="A set of challenges for JS developers"
+          content="Challenges that prepare you for real-world software development."
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
@@ -41,7 +41,7 @@ const Home: NextPage = () => {
           </span>
         </h1>
         <h2 className="block bg-gradient-to-l from-indigo-500 to-pink-500 bg-clip-text text-transparent">
-          You graduated the bootcamp. Now what?
+          You finished bootcamp, but are you job-ready?
         </h2>
 
         <Image
@@ -53,10 +53,11 @@ const Home: NextPage = () => {
         />
 
         <p className="max-w-xl text-center text-xl md:text-2xl">
-          Learn tough stuff like Webpack, Redux, TypeScript, Unit Testing,
-          Serverless and more. This material is developed for JavaScript
-          developers who want to level up their skills with real-world
-          challenges that mimic what you WILL see on the job.
+          These challenges aren’t just coding exercises — they're designed to
+          mimic what you’ll actually face as a developer on the job. Learn
+          technologies like Webpack, Redux, TypeScript, Unit Testing, and
+          Serverless in real-world scenarios that mirror the challenges your
+          future team will expect you to solve.
         </p>
 
         <Image
@@ -68,10 +69,11 @@ const Home: NextPage = () => {
         />
 
         <p className="max-w-xl text-center text-xl md:text-2xl">
-          Practice debugging pipelines, publish your first NPM library, write
-          your first line of TypeScript, and more. Learn DSA in a practical,
-          hands-on way to crush the interview. This is the course I wish I had
-          when I switched careers.
+          From debugging CI pipelines to publishing your first NPM library,
+          these hands-on challenges prepare you for the complexities of real
+          development environments. You'll also master Data Structures and
+          Algorithms in a practical way, giving you the confidence to ace your
+          next interview and handle tough coding tasks at work.
         </p>
 
         <Image
@@ -83,17 +85,23 @@ const Home: NextPage = () => {
         />
 
         <p className="max-w-xl text-center text-xl md:text-2xl">
-          Get access to a private Slack community where you can ask questions,
-          share your progress, and get help from other developers. This is a
-          great way to network and make friends in the industry. An entire
-          section is dedicated to career advice and job hunting.{" "}
+          Join a private Slack community of developers just like you. Ask
+          questions, share progress, and get feedback from experienced
+          engineers. Plus, dive into dedicated sections on career advice and job
+          hunting, so you can navigate the tech industry with confidence.
         </p>
+        <Image
+          width={800}
+          height={800}
+          alt="job offers"
+          src="/elli_eric_congrats.jpg"
+          className="rounded-lg shadow-xl"
+        />
 
         <p className="max-w-xl text-center text-xl md:text-2xl">
-          {" "}
-          I want to help you land your dream job and navigate the industry. I
-          have been writing code for a decade. I want to help you avoid the
-          pitfalls and mistakes I made.
+          With over a decade of coding experience, I’m here to help you avoid
+          the common pitfalls I encountered, so you can fast-track your career
+          and hit the ground running when you land that first job.
         </p>
 
         <Image
@@ -105,9 +113,11 @@ const Home: NextPage = () => {
         />
 
         <p className="max-w-xl text-center text-xl md:text-2xl">
-          No subscription fees. Just one low price and it is yours for life. The
-          Slack access is worth the price alone. You are going to learn a ton
-          and have a great time doing it. I can not wait to see you inside.
+          No subscription fees—just a one-time payment and the challenges,
+          videos, slack access are yours for life. The value of the Slack
+          community alone is worth the price, not to mention the real-world
+          experience you’ll gain from each challenge. You’ll learn a ton and
+          have a great time doing it. I can’t wait to see you inside.
         </p>
 
         <Link

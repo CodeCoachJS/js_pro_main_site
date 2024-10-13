@@ -43,7 +43,7 @@ export const repos = createTRPCRouter({
       );
 
     if (error) {
-      throw error;
+      throw new Error(error.message);
     }
 
     const transformedData: RepoWithCategories[] =
