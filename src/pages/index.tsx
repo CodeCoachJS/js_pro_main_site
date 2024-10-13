@@ -53,11 +53,11 @@ const Home: NextPage = () => {
         />
 
         <p className="max-w-xl text-center text-xl md:text-2xl">
-          These challenges aren’t just coding exercises — they're designed to
+          {`These challenges aren’t just coding exercises — they're designed to
           mimic what you’ll actually face as a developer on the job. Learn
           technologies like Webpack, Redux, TypeScript, Unit Testing, and
           Serverless in real-world scenarios that mirror the challenges your
-          future team will expect you to solve.
+          future team will expect you to solve.`}
         </p>
 
         <Image
@@ -69,11 +69,11 @@ const Home: NextPage = () => {
         />
 
         <p className="max-w-xl text-center text-xl md:text-2xl">
-          From debugging CI pipelines to publishing your first NPM library,
+          {`From debugging CI pipelines to publishing your first NPM library,
           these hands-on challenges prepare you for the complexities of real
           development environments. You'll also master Data Structures and
           Algorithms in a practical way, giving you the confidence to ace your
-          next interview and handle tough coding tasks at work.
+          next interview and handle tough coding tasks at work.`}
         </p>
 
         <Image
