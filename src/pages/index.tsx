@@ -33,6 +33,10 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
+      <div className="w-full animate-pulseSlow bg-gradient-to-r from-indigo-500 to-pink-500 p-3 text-center text-lg font-bold text-white">
+        🚀 50% off for the next 72 hours 🚀
+      </div>
+
       <main className="mx-auto flex w-full max-w-4xl flex-col items-center gap-8 p-4">
         <h1 className="mb-4 mt-20 text-center text-4xl font-bold md:text-6xl">
           Practice Solving
@@ -41,7 +45,7 @@ const Home: NextPage = () => {
           </span>
         </h1>
         <h2 className="block bg-gradient-to-l from-indigo-500 to-pink-500 bg-clip-text text-transparent">
-          You finished bootcamp, but are you job-ready?
+          You finished a a coding bootcamp, but are you job-ready?
         </h2>
 
         <Image
@@ -124,7 +128,7 @@ const Home: NextPage = () => {
           href={env.NEXT_PUBLIC_STRIPE_URL}
           className="rounded-full bg-gradient-to-r from-indigo-500 to-pink-500 px-6 py-3 font-bold text-white transition-colors hover:from-indigo-400 hover:to-pink-400"
         >
-          Start Building →
+          Get 50% Off – Start Building →
         </Link>
       </main>
 
