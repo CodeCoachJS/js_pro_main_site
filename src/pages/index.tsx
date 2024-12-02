@@ -34,7 +34,7 @@ const Home: NextPage = () => {
       </Head>
 
       <div className="w-full animate-pulseSlow bg-gradient-to-r from-indigo-500 to-pink-500 p-3 text-center text-lg font-bold text-white">
-        🚀 50% off for the next 72 hours 🚀
+        🚀 50% off for the next 24 hours 🚀
       </div>
 
       <main className="mx-auto flex w-full max-w-4xl flex-col items-center gap-8 p-4">
