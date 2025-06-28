@@ -7,11 +7,9 @@ import { api } from "~/utils/api";
 
 import "~/styles/globals.css";
 /**
- * 
- * @param param0 
- * 
-</script>
- * @returns 
+ *
+ * @param param0
+ * @returns
  */
 
 const MyApp: AppType<{ session: Session | null }> = ({

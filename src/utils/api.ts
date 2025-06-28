@@ -24,14 +24,14 @@ export const api = createTRPCNext<AppRouter>({
       /**
        * Transformer used for data de-serialization from the server.
        *
-       * @see https://trpc.io/docs/data-transformers
+       * @see https://trpc.io/docs/server/data-transformers
        */
       transformer: superjson,
 
       /**
        * Links used to determine request flow from client to server.
        *
-       * @see https://trpc.io/docs/links
+       * @see https://trpc.io/docs/client/links
        */
       links: [
         loggerLink({
@@ -48,7 +48,7 @@ export const api = createTRPCNext<AppRouter>({
   /**
    * Whether tRPC should await queries when server rendering pages.
    *
-   * @see https://trpc.io/docs/nextjs#ssr-boolean-default-false
+   * @see https://trpc.io/docs/client/nextjs#ssr-boolean-default-false
    */
   ssr: false,
 });

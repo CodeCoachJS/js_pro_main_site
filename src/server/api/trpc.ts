@@ -30,7 +30,7 @@ type CreateContextOptions = {
  *
  * Examples of things you may need it for:
  * - testing, so we don't have to mock Next.js' req/res
- * - tRPC's `createSSGHelpers`, where we don't have req/res
+ * - tRPC's `createServerSideHelpers`, where we don't have req/res
  *
  * @see https://create.t3.gg/en/usage/trpc#-serverapitrpcts
  */
@@ -44,7 +44,7 @@ const createInnerTRPCContext = ({ session }: CreateContextOptions) => {
  * This is the actual context you will use in your router. It will be used to process every request
  * that goes through your tRPC endpoint.
  *
- * @see https://trpc.io/docs/context
+ * @see https://trpc.io/docs/server/context
  */
 export const createTRPCContext = async ({
   req,
@@ -93,7 +93,7 @@ const t = initTRPC.context<typeof createTRPCContext>().create({
 /**
  * This is how you create new routers and sub-routers in your tRPC API.
  *
- * @see https://trpc.io/docs/router
+ * @see https://trpc.io/docs/server/routers
  */
 export const createTRPCRouter = t.router;
 
@@ -125,7 +125,7 @@ const enforceUserIsAuthed = t.middleware(({ ctx, next }) => {
  * If you want a query or mutation to ONLY be accessible to logged in users, use this. It verifies
  * the session is valid and guarantees `ctx.session.user` is not null.
  *
- * @see https://trpc.io/docs/procedures
+ * @see https://trpc.io/docs/server/procedures
  */
 export const protectedProcedure =
   process.env.NODE_ENV === "development"

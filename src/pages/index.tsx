@@ -124,12 +124,12 @@ const Home: NextPage = () => {
           href={env.NEXT_PUBLIC_STRIPE_URL}
           className="rounded-full bg-gradient-to-r from-indigo-500 to-pink-500 px-6 py-3 font-bold text-white transition-colors hover:from-indigo-400 hover:to-pink-400"
         >
-          Get 50% Off – Start Building →
+          Start Building →
         </Link>
       </main>
 
       <footer className="p-4 text-center text-gray-500">
-        <p>&copy; 2024 Not Another Course. All rights reserved.</p>
+        <p>&copy; 2025 Not Another Course. All rights reserved.</p>
       </footer>
     </div>
   );
