@@ -1,25 +1,32 @@
 import type { PostgrestResponse } from "@supabase/supabase-js";
 
-import { supabase } from "~/pages/api/trpc/[trpc]";
 import { createTRPCRouter, protectedProcedure } from "~/server/api/trpc";
 
 interface Document {
-  url: string;
-  description: string;
+  id: string;
+  title: string;
+  content: string;
   created_at: string;
-  name: string;
+  updated_at: string;
 }
 
 export const documents = createTRPCRouter({
-  getDocuments: protectedProcedure.query(async (): Promise<Document[]> => {
-    const { data, error }: PostgrestResponse<Document> = await supabase
-      .from("documents")
-      .select("*");
+  getDocuments: protectedProcedure.query(
+    async ({ ctx }): Promise<Document[]> => {
+      if (!ctx.supabase) {
+        throw new Error("Supabase client not available");
+      }
 
-    if (error) {
-      throw error;
-    }
+      const { data, error }: PostgrestResponse<Document> = await ctx.supabase
+        .from("documents")
+        .select("*")
+        .order("created_at", { ascending: false });
 
-    return data;
-  }),
+      if (error) {
+        throw error;
+      }
+
+      return data || [];
+    },
+  ),
 });

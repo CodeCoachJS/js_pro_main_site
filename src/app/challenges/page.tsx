@@ -14,8 +14,8 @@ interface Repository {
   isPrivate: boolean;
   url: string;
   updated_at: string;
-  repo_categories: { category: { name: string } }[];
-  categories?: string[];
+  created_at: string;
+  categories: string[];
 }
 
 export default function ChallengesPage() {
@@ -49,7 +49,7 @@ export default function ChallengesPage() {
             return repo.categories.some((cat) => filter.has(cat));
           }
           return false;
-        })
+        }),
       );
     } else {
       setRepos(data);
@@ -87,9 +87,7 @@ export default function ChallengesPage() {
       data?.filter((repo) => {
         const title = repo.name;
         const description = repo.description;
-        const categories = repo.repo_categories.map(
-          (category) => category.category.name
-        );
+        const categories = repo.categories;
         if (
           title.toLowerCase().includes(query) ||
           description.toLowerCase().includes(query) ||
@@ -147,8 +145,8 @@ export default function ChallengesPage() {
         ))}
       </div>
       <p className="mt-2 text-center text-xl">
-        Not sure where to start? I suggest checking out the main course
-        material under <code>interview prep</code> or check out the{" "}
+        Not sure where to start? I suggest checking out the main course material
+        under <code>interview prep</code> or check out the{" "}
         <Link className="text-blue-500 hover:text-blue-700" href="/syllabus">
           Syllabus
         </Link>
@@ -223,4 +221,4 @@ export default function ChallengesPage() {
       </div>
     </main>
   );
-} 
+}

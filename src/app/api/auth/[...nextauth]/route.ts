@@ -1,6 +1,8 @@
 import NextAuth from "next-auth";
 import { authOptions } from "~/server/auth";
 
-const handler = NextAuth(authOptions);
+export const runtime = "nodejs";
 
-export { handler as GET, handler as POST }; 
+// Export the handler functions directly
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+export const { GET, POST } = NextAuth(authOptions);

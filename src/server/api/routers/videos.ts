@@ -1,6 +1,5 @@
 import type { PostgrestResponse } from "@supabase/supabase-js";
 
-import { supabase } from "~/pages/api/trpc/[trpc]";
 import {
   createTRPCRouter,
   protectedProcedure,
@@ -19,8 +18,12 @@ export type WeeklyVideo = Omit<Video, "isPublic" | "thumbnail_url">;
 
 export const videos = createTRPCRouter({
   getWeeklyMeetings: protectedProcedure.query(
-    async (): Promise<WeeklyVideo[]> => {
-      const { data, error }: PostgrestResponse<WeeklyVideo> = await supabase
+    async ({ ctx }): Promise<WeeklyVideo[]> => {
+      if (!ctx.supabase) {
+        throw new Error("Supabase client not available");
+      }
+
+      const { data, error }: PostgrestResponse<WeeklyVideo> = await ctx.supabase
         .from("weekly_meetups")
         .select("*")
         .order("created_at", { ascending: false })
@@ -31,10 +34,14 @@ export const videos = createTRPCRouter({
       }
 
       return data;
-    }
+    },
   ),
-  getVideos: publicProcedure.query(async (): Promise<Video[]> => {
-    const { data, error }: PostgrestResponse<Video> = await supabase
+  getVideos: publicProcedure.query(async ({ ctx }): Promise<Video[]> => {
+    if (!ctx.supabase) {
+      throw new Error("Supabase client not available");
+    }
+
+    const { data, error }: PostgrestResponse<Video> = await ctx.supabase
       .from("videos")
       .select("*")
       .order("isPublic", { ascending: false })
@@ -49,7 +56,7 @@ export const videos = createTRPCRouter({
           data.map(async (video: Video) => {
             try {
               const res = await fetch(
-                `https://www.loom.com/v1/oembed?url=${video.url}`
+                `https://www.loom.com/v1/oembed?url=${video.url}`,
               );
               const json = (await res.json()) as { thumbnail_url: string };
 
@@ -57,7 +64,7 @@ export const videos = createTRPCRouter({
             } catch (e) {
               return video;
             }
-          })
+          }),
         )
       : [];
 

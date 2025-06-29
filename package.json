@@ -15,6 +15,8 @@
     "@trpc/next": "^11.0.0",
     "@trpc/react-query": "^11.0.0",
     "@trpc/server": "^11.0.0",
+    "crypt": "^0.0.2",
+    "crypto": "^1.0.1",
     "eslint-plugin-unicorn": "^51.0.1",
     "framer-motion": "^12.19.2",
     "heroicons": "^2.1.1",

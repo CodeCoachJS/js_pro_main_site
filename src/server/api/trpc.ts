@@ -18,11 +18,13 @@
 import { type CreateNextContextOptions } from "@trpc/server/adapters/next";
 import { type Session } from "next-auth";
 import { getServerSession } from "next-auth";
+import { type SupabaseClient } from "@supabase/supabase-js";
 
 import { authOptions } from "~/server/auth";
 
 type CreateContextOptions = {
   session: Session | null;
+  supabase?: SupabaseClient;
 };
 
 /**
@@ -35,9 +37,13 @@ type CreateContextOptions = {
  *
  * @see https://create.t3.gg/en/usage/trpc#-serverapitrpcts
  */
-const createInnerTRPCContext = ({ session }: CreateContextOptions) => {
+const createInnerTRPCContext = ({
+  session,
+  supabase,
+}: CreateContextOptions) => {
   return {
     session,
+    supabase,
   };
 };
 
@@ -48,7 +54,7 @@ const createInnerTRPCContext = ({ session }: CreateContextOptions) => {
  * @see https://trpc.io/docs/server/context
  */
 export const createTRPCContext = async (
-  opts: CreateNextContextOptions | { req: Request }
+  opts: CreateNextContextOptions | { req: Request; supabase?: SupabaseClient },
 ) => {
   // For App Router
   if ("req" in opts && opts.req instanceof Request) {
@@ -56,6 +62,7 @@ export const createTRPCContext = async (
     const session = await getServerSession(authOptions);
     return createInnerTRPCContext({
       session,
+      supabase: "supabase" in opts ? opts.supabase : undefined,
     });
   }
 
