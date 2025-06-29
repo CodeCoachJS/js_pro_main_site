@@ -1,6 +1,8 @@
-import { type NextComponentType } from "next";
+"use client";
 
-const LoadingIcon: NextComponentType = () => {
+import React from "react";
+
+const LoadingIcon: React.FC = () => {
   return (
     <div className="flex h-screen items-center justify-center">
       <div className="relative h-24 w-24 animate-spin rounded-full bg-gradient-to-r from-blue-500 via-transparent to-purple-500">

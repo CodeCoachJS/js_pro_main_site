@@ -1,5 +1,4 @@
-import { type GetServerSidePropsContext } from "next";
-import { getServerSession, type NextAuthOptions } from "next-auth";
+import { type NextAuthOptions } from "next-auth";
 import type { DefaultSession } from "next-auth";
 import GitHubProvider from "next-auth/providers/github";
 import type { GithubProfile } from "next-auth/providers/github";
@@ -40,7 +39,7 @@ declare module "next-auth/jwt" {
 
 async function _checkOrgMembership(
   org: { name: string; token: string },
-  userName: string
+  userName: string,
 ): Promise<boolean> {
   const url = `https://api.github.com/orgs/${org.name}/members/${userName}`;
 
@@ -94,12 +93,12 @@ export const authOptions: NextAuthOptions = {
             console.error(e);
             console.error(`Failed to check membership for ${org.name}`);
             return false;
-          })
-        )
+          }),
+        ),
       );
 
       const isMember = results.some(
-        (result) => result.status === "fulfilled" && result.value
+        (result) => result.status === "fulfilled" && result.value,
       );
 
       // If we're in development, we'll just assume the user is a member.
@@ -134,16 +133,4 @@ export const authOptions: NextAuthOptions = {
      * @see https://next-auth.js.org/providers/github
      */
   ],
-};
-
-/**
- * Wrapper for `getServerSession` so that you don't need to import the `authOptions` in every file.
- *
- * @see https://next-auth.js.org/configuration/nextjs
- */
-export const getServerAuthSession = (ctx: {
-  req: GetServerSidePropsContext["req"];
-  res: GetServerSidePropsContext["res"];
-}) => {
-  return getServerSession(ctx.req, ctx.res, authOptions);
 };

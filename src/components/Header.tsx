@@ -1,18 +1,19 @@
-import { type NextComponentType } from "next";
+"use client";
+
 import Link from "next/link";
-import { useRouter } from "next/router";
+import { usePathname } from "next/navigation";
 import { useSession } from "next-auth/react";
-import { useState } from "react";
+import React, { useState } from "react";
 import { env } from "../env.mjs";
 
-const Header: NextComponentType = () => {
+const Header: React.FC = () => {
   const session = useSession();
-  const router = useRouter();
+  const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
 
   const isNotMember = !session.data?.isMember;
 
-  const isHomePage = router.pathname === "/";
+  const isHomePage = pathname === "/";
 
   return (
     <>
